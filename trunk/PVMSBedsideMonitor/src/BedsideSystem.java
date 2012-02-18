@@ -7,7 +7,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import patient.Patient;
+import CommonFiles.Patient;
+
 
 //Functions:
 //display all current patient vitals
