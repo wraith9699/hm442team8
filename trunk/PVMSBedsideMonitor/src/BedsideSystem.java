@@ -3,6 +3,18 @@ import java.rmi.server.UnicastRemoteObject;
 
 import patient.Patient;
 
+//Functions:
+//display all current patient vitals
+//display specific vital trend
+//register to registry server
+//send patient object to server
+//set patient's info
+//enable/disable sensors
+//set Timer
+//accept patient assignment from server
+
+//Note: All Alarms, Calls, and Vital updates are sent with the Patient object, which is sent at the time the sensors update the Patient's info
+
 
 public class BedsideSystem extends UnicastRemoteObject {
 
