@@ -1,5 +1,3 @@
-package pvms.nursestation;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -7,36 +5,42 @@ import java.util.*;
 
 public class NurseStationImpl extends UnicastRemoteObject{
 
-	ArrayList<Patient> patientList;
+	//The Nurses Station needs to:
+	// 1 - Create and store patient objects
+	// 2 - Assign patient objects to bedside systems (includes all alarms)
+	// 3 - Receive patient objects as updates from bedside systems
+	// 4 - Send vital alarm acknowledgements
+	// 5 - 
+	
+	
+	HashMap patientMap;
 	
 	
 	//Default Constructor
 	public NurseStationImpl() throws RemoteException{
+		patientMap = new HashMap();
 	}
-	
-	
-	//Gather all of the Patients into an ArrayList
-	public Collection getAllPatients(){
-		ArrayList patientList = new ArrayList(patients.keySet());
-		return patientList;
-	}
-	
 	
 	//Methods that need to be implemented:
 	
-	//Create Patient Object, and store it in the patientList
-	public Patient admitPatient(){
-		Patient newPatient = new Patient();
-		patientList.
+	//Gather all of the Patients into an ArrayList for display
+	
+	//Create Patient Object, and store it in the patientList, and attempt to send Patient to an available Bedside System
+	public void admitPatient(String name, int id){
+		Patient newPatient = new Patient(name, id);
+		patientMap.put(id, newPatient);
+		//TODO: Attempt to send Patient to an available Bedside System.
 	}
 	
 	
-	//Assign Patient to Bedside via Registry
 	//Receive Patient Object via RMI
-	//Send Vital Alarm Acknowledgement
-	//Display All Patients and All Vitals and All Alarms
-	
-	
-	public Patient admitPatient(PatientInfo info) throws IOException{
+	public void updatePatientInfo(Patient p){
+		patientMap.put(p.getID,p);
 	}
+	
+	//Send Vital Alarm Acknowledgement
+	public void acknowledgeVitalAlarm(Patient p){
+		
+	}
+
 }

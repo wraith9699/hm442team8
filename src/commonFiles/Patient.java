@@ -9,16 +9,16 @@ public class Patient {
 	private int patientID;
 	private ArrayList<Vital> vitalList = new ArrayList<Vital>();
 
-	public Patient(String name, int idNumber ){
+	public Patient(String name, int idNumber){
 		this.name = name;
 		this.patientID = idNumber;
 	}
 	
-	public void addVital( Vital newVital){
+	public void addVital(Vital newVital){
 		vitalList.add(newVital);
 	}
 	
-	public void removeVital( Vital rmVital){
+	public void removeVital(Vital rmVital){
 		vitalList.remove(rmVital);
 	}
 	
@@ -32,4 +32,8 @@ public class Patient {
 	public ArrayList<Vital> getVitals(){
 		return vitalList;
 	}
+	public int getID(){
+		return patientID;
+	}
+	
 }
