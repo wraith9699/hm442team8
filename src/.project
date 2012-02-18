@@ -3,6 +3,8 @@
 	<name>PVMS</name>
 	<comment></comment>
 	<projects>
+		<project>PVMSBedsideMonitor</project>
+		<project>PVMSNurseStation</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>
