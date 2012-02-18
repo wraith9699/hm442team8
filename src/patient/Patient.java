@@ -27,4 +27,8 @@ public class Patient {
 	public Vital getVital( Vital desiredVital ){
 		return vitalList.get(vitalList.indexOf(desiredVital));
 	}
+	
+	public ArrayList<Vital> getVitals(){
+		return vitalList;
+	}
 }
