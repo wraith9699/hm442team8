@@ -1,4 +1,4 @@
-package patient;
+package commonFiles;
 
 import java.util.Queue;
 
