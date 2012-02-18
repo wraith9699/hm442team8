@@ -1,4 +1,7 @@
+import java.io.IOException;
 import java.rmi.server.UnicastRemoteObject;
+
+import patient.Patient;
 
 
 public class BedsideSystem extends UnicastRemoteObject {
@@ -11,7 +14,8 @@ public class BedsideSystem extends UnicastRemoteObject {
 	NurseStation nurseStation;
 	
 	Patient patient;
-	ArrayList <Vital> patientVitals;
+	
+	private enum status { IDLE, CALLING, ALARMED};
 	
 	
 	public static void main(String[] args) {
@@ -24,7 +28,15 @@ public class BedsideSystem extends UnicastRemoteObject {
 			getNurseStation();
 	}
 	
+	public BedsideSystem () throws IOException{
+		getNurseStation();
+	}
+	
 	//Public
+	public void getNurseStation(){
+		
+	}
+	
 	public void getVitals(){
 
 	}
