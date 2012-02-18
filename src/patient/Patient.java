@@ -9,9 +9,8 @@ public class Patient {
 	private int patientID;
 	private ArrayList<Vital> vitalList = new ArrayList<Vital>();
 
-	public Patient(String name, ArrayList vitalList, int idNumber ){
+	public Patient(String name, int idNumber ){
 		this.name = name;
-		this.vitalList = vitalList;
 		this.patientID = idNumber;
 	}
 	
