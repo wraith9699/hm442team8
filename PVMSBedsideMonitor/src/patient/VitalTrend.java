@@ -2,6 +2,8 @@ package patient;
 
 import java.util.Queue;
 
+import commonFiles.Vital;
+
 public class VitalTrend {
 
 	private int measurementPeriod;

@@ -4,6 +4,8 @@ package patient;
 
 import java.util.ArrayList;
 
+import commonFiles.Vital;
+
 public class Patient {
 	private String name;
 	private ArrayList<Vital> vitalList = new ArrayList<Vital>();

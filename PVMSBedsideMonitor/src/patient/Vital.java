@@ -1,5 +1,7 @@
 package patient;
 
+import commonFiles.VitalTrend;
+
 public class Vital {
 	private String name;
 	private int currentValue;

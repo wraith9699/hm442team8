@@ -7,7 +7,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import CommonFiles.Patient;
+import commonFiles.NurseStation;
+
+import commonFiles.Patient;
 
 
 //Functions:
@@ -55,7 +57,7 @@ public class BedsideSystem extends UnicastRemoteObject {
 	
 	//Public
 	public NurseStation getNurseStation() throws RemoteException{
-		if (nurseStation = null){
+		if (nurseStation == null){
 			try{
 				System.setSecurityManager( new RMISecurityManager());
 				Registry registry = LocateRegistry.getRegistry();
