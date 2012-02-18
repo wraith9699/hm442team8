@@ -9,6 +9,7 @@ public class NurseStationImpl extends UnicastRemoteObject{
 
 	ArrayList<Patient> patientList;
 	
+	
 	//Default Constructor
 	public NurseStationImpl() throws RemoteException{
 	}
@@ -19,6 +20,22 @@ public class NurseStationImpl extends UnicastRemoteObject{
 		ArrayList patientList = new ArrayList(patients.keySet());
 		return patientList;
 	}
+	
+	
+	//Methods that need to be implemented:
+	
+	//Create Patient Object, and store it in the patientList
+	public Patient admitPatient(){
+		Patient newPatient = new Patient();
+		patientList.
+	}
+	
+	
+	//Assign Patient to Bedside via Registry
+	//Receive Patient Object via RMI
+	//Send Vital Alarm Acknowledgement
+	//Display All Patients and All Vitals and All Alarms
+	
 	
 	public Patient admitPatient(PatientInfo info) throws IOException{
 	}
