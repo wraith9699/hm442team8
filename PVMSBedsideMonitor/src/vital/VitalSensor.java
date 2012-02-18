@@ -17,8 +17,17 @@ public class VitalSensor {
 	}
 	
 	public int read(){
+		//several return types are included for the sake of the tester.
+		
 		//Return a reasonable yet random value between 40 and 60.
 		return (int) (40 + Math.random()*20);
+		
+		//Return a completely random value between 0 and 100.
+		//return (int) (Math.random()*100);
+		
+		//Return an extreme value.
+		//return (int) (90 + Math.random()*10)
+		
 	}
 	
 	
