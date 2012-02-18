@@ -2,42 +2,18 @@ package vital;
 
 import java.util.ArrayList;
 
+//Dummy interface for external data sources
+
 public class VitalSensor {
 	
-	ArrayList<VitalData> trackedVitals;
+	// This is where the class would get the information from the external
+	// physical sensor. Lacking one of those, this is going to be left to
+	// languish in unimplemented emptiness. 
 	
-	public VitalSensor(){
-		trackedVitals = new ArrayList<VitalData>();
-		//Add tracked values with default measures.
-		trackedVitals.add(new VitalData("Blood Pressure", 0));
-		trackedVitals.add(new VitalData("Body Temperature", 0));
-		trackedVitals.add(new VitalData("HearthRate", 0));
-		trackedVitals.add(new VitalData("RespiratoryRate", 0));
-		trackedVitals.add(new VitalData("Weight", 0));
+	public int read(){
+		//Return a reasonable yet random value between 40 and 60.
+		return (int) (40 + Math.random()*20);
 	}
 	
-	public ArrayList<VitalData> getVitals(){
-		
-		ArrayList<VitalData> vitals = new ArrayList<VitalData>();
-		
-		
-		
-		return vitals;
-	}
 	
-}
-
-
-//Internal context class for the strategy pattern.
-class VitalType {
-	
-	public VitalAlgorithm vitalStrategy;
-	
-	public VitalType(VitalAlgorithm vA){
-		vitalStrategy = vA;
-	}
-	
-	public int getValue(int rawValue){
-		return vitalStrategy.getValue(rawValue);	
-	}
 }
