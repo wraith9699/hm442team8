@@ -11,10 +11,17 @@ public class BloodPressure implements VitalAlgorithm {
 	int MIN = 60;
 	int MAX = 160;
 	
+	VitalSensor sensor = new VitalSensor("bloodpressure");
+	
 	@Override
 	public int getValue(int rawMeasure) {
 		int realValue = MIN + ((MAX - MIN) * (rawMeasure/100) );
 		return realValue;
 	}
 
+	public int getValue(){
+		int realValue = sensor.read();
+		return getValue(realValue);
+	}
+	
 }
