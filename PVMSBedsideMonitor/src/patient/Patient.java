@@ -8,6 +8,10 @@ public class Patient {
 	private String name;
 	private ArrayList<Vital> vitalList = new ArrayList<Vital>();
 
+	public Patient(String name){
+		this.name = name;
+	}
+	
 	public Patient(String name, ArrayList vitalList ){
 		this.name = name;
 		this.vitalList = vitalList;
