@@ -52,4 +52,10 @@ public class BedsideSystemStub implements BedsideSystem {
 
 	}
 
+	@Override
+	public void getVital() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

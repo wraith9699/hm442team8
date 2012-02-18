@@ -5,6 +5,7 @@ package bedside;
 public interface BedsideSystem {
 
 	void getVitals();
+	void getVital();
 	void setTimerPeriods(int period);  //in milliseconds
 	//Commands w/ no return
 	void startSensors();
