@@ -3,6 +3,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
+import commonFiles.Patient;
+
 public class NurseStationImpl extends UnicastRemoteObject{
 
 	//The Nurses Station needs to:
@@ -10,7 +12,7 @@ public class NurseStationImpl extends UnicastRemoteObject{
 	// 2 - Assign patient objects to bedside systems (includes all alarms)
 	// 3 - Receive patient objects as updates from bedside systems
 	// 4 - Send vital alarm acknowledgements
-	// 5 - 
+	// 5 - Provide Patient's Data for Display
 	
 	
 	HashMap patientMap;
@@ -35,7 +37,7 @@ public class NurseStationImpl extends UnicastRemoteObject{
 	
 	//Receive Patient Object via RMI
 	public void updatePatientInfo(Patient p){
-		patientMap.put(p.getID,p);
+		patientMap.put(p.getID(),p);
 	}
 	
 	//Send Vital Alarm Acknowledgement

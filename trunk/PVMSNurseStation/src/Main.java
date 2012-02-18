@@ -8,6 +8,7 @@ public class Main {
 	//Default Constructor
 	public Main(){
 		try{
+			startRegistry();
 			startStation();
 		}
 		catch(Exception e){
@@ -39,6 +40,7 @@ public class Main {
 	
 	//Main Executable
 	public static void main(String[] args) throws Exception{
+		@SuppressWarnings("unused")
 		Main m = new Main();
 	}
 	
