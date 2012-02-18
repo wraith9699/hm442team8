@@ -1,4 +1,4 @@
-package patient;
+package commonFiles;
 
 public class Vital {
 	private String name;
