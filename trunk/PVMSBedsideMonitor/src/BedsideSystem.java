@@ -25,7 +25,7 @@ public class BedsideSystem extends UnicastRemoteObject {
 	
 	//Constructor
 	public BedsideSystem (String patientName) throws IOException{
-			getNurseStation();
+		getNurseStation();
 	}
 	
 	public BedsideSystem () throws IOException{
@@ -41,10 +41,27 @@ public class BedsideSystem extends UnicastRemoteObject {
 
 	}
 	
+	public void updateNurseStation(){
+		
+	}
+	
 	public void callNurse(){
 		
 	}
 	
+	public void acknowledgeCall(){
+		
+	}
+	
+	public void activateAlarm(){
+		
+	}
+	
+	public void resetAlarm(){
+		
+	}
 	
 
+	
+	
 }
