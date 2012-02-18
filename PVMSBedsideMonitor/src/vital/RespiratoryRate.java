@@ -6,6 +6,7 @@ public class RespiratoryRate implements VitalAlgorithm {
 	//the patient. These are included as placeholders.
 	int MIN = 10;
 	int MAX = 40;
+	VitalSensor sensor = new VitalSensor("respiratoryrate");
 	
 	@Override
 	public int getValue(int rawMeasure) {
@@ -13,4 +14,9 @@ public class RespiratoryRate implements VitalAlgorithm {
 		return realValue;
 	}
 
+	public int getValue(){
+		int realValue = sensor.read();
+		return getValue(realValue);
+	}
+	
 }

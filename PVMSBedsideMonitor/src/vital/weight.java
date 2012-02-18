@@ -6,6 +6,7 @@ public class weight implements VitalAlgorithm {
 	//the patient. These are included as placeholders.
 	int MIN = 0;
 	int MAX = 240;
+	VitalSensor sensor = new VitalSensor("weight");
 	
 	@Override
 	public int getValue(int rawMeasure) {
@@ -13,5 +14,9 @@ public class weight implements VitalAlgorithm {
 		return realValue;
 	}
 
-
+	public int getValue(){
+		int realValue = sensor.read();
+		return getValue(realValue);
+	}
+	
 }

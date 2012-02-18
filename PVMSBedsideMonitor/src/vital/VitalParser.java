@@ -36,7 +36,8 @@ public class VitalParser {
 	
 	public ArrayList<VitalData> getVitals(){
 		
-		ArrayList<VitalData> vitalSensors = new ArrayList<VitalData>();
+		//ArrayList<VitalData> vitalSensors = new ArrayList<VitalData>();
+		ArrayList<VitalData> vitals = new ArrayList<VitalData>();
 		
 		int v = vitalSensors.size();
 		for(int i = 0; i < v; i++){
@@ -52,12 +53,17 @@ public class VitalParser {
 				vital = new VitalType(new RespiratoryRate());
 			} else if(vitalName.equals(WEIGHT)){
 				vital = new VitalType(new weight());
+			} else {
+				//defaults to weight measurement
+				vital = new VitalType(new weight());
 			}
-			//int 
+			int result = vital.getValue();
+			VitalData datum = new VitalData(vitalName, result);
+			vitals.add(datum);
 		}
 		
-		return new ArrayList<VitalData>();
-		//return vitals;
+		//return new ArrayList<VitalData>();
+		return vitals;
 	}
 	
 }
@@ -74,5 +80,9 @@ class VitalType {
 	
 	public int getValue(int rawValue){
 		return vitalStrategy.getValue(rawValue);	
+	}
+	
+	public int getValue(){
+		return vitalStrategy.getValue();
 	}
 }
