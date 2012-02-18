@@ -1,4 +1,10 @@
 import java.io.IOException;
+import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
+import java.rmi.ServerException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import patient.Patient;
@@ -25,9 +31,11 @@ public class BedsideSystem extends UnicastRemoteObject {
 	//Attributes
 	NurseStation nurseStation;
 	
-	Patient patient;
+	Patient patient = null;
 	
-	private enum status { IDLE, CALLING, ALARMED};
+	Status currentStatus;
+	
+	private enum Status { IDLE, CALLING, ALARMED};
 	
 	
 	public static void main(String[] args) {
@@ -37,16 +45,33 @@ public class BedsideSystem extends UnicastRemoteObject {
 	
 	//Constructor
 	public BedsideSystem (String patientName) throws IOException{
-		getNurseStation();
+		nurseStation = getNurseStation();
 	}
 	
 	public BedsideSystem () throws IOException{
-		getNurseStation();
+		nurseStation = getNurseStation();
 	}
 	
 	//Public
-	public void getNurseStation(){
-		
+	public NurseStation getNurseStation() throws RemoteException{
+		if (nurseStation = null){
+			try{
+				System.setSecurityManager( new RMISecurityManager());
+				Registry registry = LocateRegistry.getRegistry();
+				nurseStation = (NurseStation) registry.lookup(NURSE_STATION);
+			} catch (NotBoundException e){
+	            throw new ServerException("Could not access nurse station", e);
+	         } catch (IOException e){
+	            throw new ServerException("Could not load jndi.properties", e);
+	         }
+	         
+		}
+	}
+	
+	public void acceptPatient(Patient newPatient){
+		if (isEmpty()){
+			patient = newPatient;
+		}
 	}
 	
 	public void getVitals(){
@@ -58,22 +83,27 @@ public class BedsideSystem extends UnicastRemoteObject {
 	}
 	
 	public void callNurse(){
-		
+		setStatus(Status.CALLING);
+		updateNurseStation();
 	}
 	
-	public void acknowledgeCall(){
-		
+	public void resetBedside(){
+		setStatus(Status.IDLE);
+		updateNurseStation();
 	}
 	
 	public void activateAlarm(){
-		
+		setStatus(Status.ALARMED);
+		updateNurseStation();
 	}
 	
-	public void resetAlarm(){
-		
+	public void setStatus(Status newStatus){
+		currentStatus = newStatus;
 	}
 	
-
+	public boolean isEmpty(){
+		return patient == null;
+	}
 	
 	
 }
