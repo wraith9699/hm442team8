@@ -17,6 +17,11 @@ public class Vital {
 		this.currentValue = currentValue;
 	}
 	
+	public Vital( String name, int high, int low, int highHigh, int lowLow){
+		this.name = name;
+		this.highValue = high; this.lowValue = low; this.highHigh = highHigh; this.lowLow = lowLow;
+	}
+	
 	public String getName(){
 		return name;
 	}
