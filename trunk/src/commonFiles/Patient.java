@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public class Patient {
 	private String name;
-	private int patientID;
+	private String patientID;
 	private ArrayList<Vital> vitalList = new ArrayList<Vital>();
 
-	public Patient(String name, int idNumber){
+	public Patient(String name, String patientID){
 		this.name = name;
-		this.patientID = idNumber;
+		this.patientID = patientID;
 	}
 	
 	public void addVital(Vital newVital){
@@ -32,7 +32,7 @@ public class Patient {
 	public ArrayList<Vital> getVitals(){
 		return vitalList;
 	}
-	public int getID(){
+	public String getID(){
 		return patientID;
 	}
 	
