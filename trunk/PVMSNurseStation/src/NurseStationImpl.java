@@ -22,17 +22,13 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	
 	private static final long serialVersionUID = 1L;
 	
-	private HashMap<String,Patient> patientMap;
 	private HashMap<String,BedsideSystem> bedsideMap;
 	
 	//Default Constructor
 	public NurseStationImpl() throws RemoteException{
-		patientMap = new HashMap<String,Patient>();
 		bedsideMap = new HashMap<String,BedsideSystem>();
 	}
-	
-	//Methods that need to be implemented:
-	
+		
 	//Gather all of the Patients into an ArrayList for display
 	public ArrayList<Patient> getPatientList(){
 		ArrayList<Patient> patientList = new ArrayList<Patient>();
@@ -40,13 +36,20 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		return patientList;
 	}
 	
-	//Create Patient Object, and store it in the patientList, and attempt to send Patient to an available Bedside System
-	public void admitPatient(String name, String id){
-		Patient newPatient = new Patient(name, id);
-		patientMap.put(id, newPatient);
-		//TODO: Attempt to send Patient to an available Bedside System.
+	public ArrayList<BedsideSystem> getBedList(){
+		ArrayList<BedsideSystem> bedList = new ArrayList<BedsideSystem>();
+		bedList.addAll(bedsideMap.values());
+		return bedList;
 	}
 	
+	//Tell the first available bedside system to create a patient object
+	public void admitPatient(String name, String id){
+		ArrayList<BedsideSystem> bedList = getBedList();
+		for(int i = 0; i < bedList.size(); i++){
+			if (bedList.get(i).isEmpty())
+				bedList.get(i).acceptPatient(name,id);
+		}
+	}
 	
 	//Receive Patient Object via RMI
 	public void updatePatientInfo(Patient p){
