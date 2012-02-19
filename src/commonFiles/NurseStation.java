@@ -10,6 +10,4 @@ public interface NurseStation extends Remote{
 	
 	public void updatePatientInfo(Patient p) throws RemoteException;
 	
-	public boolean isEmpty() throws RemoteException;
-	
 }

@@ -29,10 +29,13 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		bedsideMap = new HashMap<String,BedsideSystem>();
 	}
 		
-	//Gather all of the Patients into an ArrayList for display
+	//Collect an ArrayList of Patients from the ArrayList of Bedsides for display of Patient Vitals.
 	public ArrayList<Patient> getPatientList(){
 		ArrayList<Patient> patientList = new ArrayList<Patient>();
-		patientList.addAll(patientMap.values());
+		ArrayList<BedsideSystem> bedList = getBedList();
+		for(int i = 0; i < bedList.size(); i++){
+			//Get the patient object from the bedside system;
+		}
 		return patientList;
 	}
 	
