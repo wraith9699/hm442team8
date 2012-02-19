@@ -2,44 +2,44 @@ package commonFiles;
 
 //Test
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Patient {
 	private String name;
 	private String patientID;
-	private ArrayList<Vital> vitalList = new ArrayList<Vital>();
+	private HashMap vitalList = new HashMap();
 
 	public Patient(String name, String patientID){
 		this.name = name;
 		this.patientID = patientID;
 	}
 	
-	public Patient(String name, String patientID, ArrayList vitals){
+	public Patient(String name, String patientID, HashMap vitals){
 		this.name = name;
 		this.patientID = patientID;
 		this.vitalList = vitals;
 	}
 	
 	public void addVital(Vital newVital){
-		vitalList.add(newVital);
+		vitalList.put(newVital.getName(), newVital);
 	}
 	
 	public void removeVital(Vital rmVital){
-		vitalList.remove(rmVital);
+		vitalList.remove(rmVital.getName());
 	}
 	
 	public void updateVital( Vital updatedVital ){
 	}
 	
 	public Vital getVital( Vital desiredVital ){
-		return vitalList.get(vitalList.indexOf(desiredVital));
+		return (Vital) vitalList.get(desiredVital.getName());
 	}
 	
-	public void setVitalList(ArrayList vitals){
+	public void setVitalList(HashMap vitals){
 		vitalList = vitals;
 	}
 	
-	public ArrayList<Vital> getVitals(){
+	public HashMap getVitals(){
 		return vitalList;
 	}
 	public String getID(){
