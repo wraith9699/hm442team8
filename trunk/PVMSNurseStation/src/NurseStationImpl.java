@@ -1,10 +1,11 @@
+import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
-import java.util.Timer;
 
 import commonFiles.Patient;
 import commonFiles.NurseStation;
@@ -56,8 +57,11 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 			tempBedMap.put(id, (BedsideSystem)registry.lookup(id));
 			bedsideMap = tempBedMap;
 		}
-		catch(Exception e){
-			System.err.println("Something went wrong while getting the bedsides.");
+		catch(IOException e){
+			System.err.println("IO Exception in update Bedside");
+		}
+		catch(NotBoundException nbe){
+			System.err.println("Not Bound Exception in update Bedside");
 		}
 	}
 	
