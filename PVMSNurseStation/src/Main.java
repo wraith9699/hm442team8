@@ -1,7 +1,7 @@
 import java.rmi.Naming;
-import java.rmi.server.ExportException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.RemoteException;
+import java.rmi.server.*;
+import java.rmi.registry.*;
 
 public class Main {
 
@@ -13,6 +13,7 @@ public class Main {
 		}
 		catch(Exception e){
 			System.out.println("The Nurse's Station could not be started.");
+			e.printStackTrace(System.err);
 		}
 	}
 	
@@ -23,10 +24,10 @@ public class Main {
 			LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 		}
 		catch(ExportException ee){
-			
+			System.out.println("Registry already exists.");
 		}
-		catch(Exception e){
-			
+		catch(RemoteException e){
+			System.out.println("Registry could not be created.");
 		}
 	}
 	
