@@ -29,7 +29,8 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	private class updateTask extends TimerTask{
 		public void run(){
 			try{
-				gatherBedsideUpdates();
+				if(!getBedList().isEmpty())
+					gatherBedsideUpdates();
 			} 
 			catch (RemoteException e) {
 				e.printStackTrace();
@@ -43,7 +44,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	//Default Constructor
 	public NurseStationImpl() throws RemoteException{
 		bedsideMap = new HashMap<String,BedsideSystem>();
-		//updateClock.schedule(task, pullDelay);
+		updateClock.schedule(task,0,pullDelay);
 	}
 	
 	//Receive knowledge that a bedside exists.
