@@ -27,8 +27,13 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	private Timer updateClock = new Timer(true);
 	//The task the timer performs every delay
 	private class updateTask extends TimerTask{
-		public void run() {
-			gatherBedsideUpdates();
+		public void run(){
+			try{
+				gatherBedsideUpdates();
+			} 
+			catch (RemoteException e) {
+				e.printStackTrace();
+			}
 			System.out.println("Updated Patient Information.");
 		}	
 	}
@@ -42,7 +47,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Receive knowledge that a bedside exists.
-	public void updateBedsideLookup(String id){
+	public void updateBedsideLookup(String id) throws RemoteException{
 		HashMap<String,BedsideSystem> tempBedMap = new HashMap<String,BedsideSystem>();
 		try{
 			System.setSecurityManager(new RMISecurityManager());
@@ -56,7 +61,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Collect an ArrayList of all the remote references to bedside systems from the map
-	public ArrayList<BedsideSystem> getBedList(){
+	public ArrayList<BedsideSystem> getBedList()throws RemoteException{
 		ArrayList<BedsideSystem> bedList = new ArrayList<BedsideSystem>();
 		if(bedsideMap.isEmpty() != true)
 			bedList.addAll(bedsideMap.values());
@@ -64,7 +69,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Tell the first available bedside system to create a patient object
-	public void admitPatient(String name, String id){
+	public void admitPatient(String name, String id)throws RemoteException{
 		ArrayList<BedsideSystem> bedList = getBedList();
 		for(int i = 0; i < bedList.size(); i++){
 			if (bedList.get(i).isEmpty())
@@ -73,7 +78,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Tell the remote reference to a bedside system to discharge its patient
-	public void dischargePatient(BedsideSystem bs){
+	public void dischargePatient(BedsideSystem bs)throws RemoteException{
 		ArrayList<BedsideSystem> bedList = getBedList();
 		for(int i = 0; i < bedList.size(); i++){
 			//if bs = current BedsideSystem iteration of bedList
@@ -82,7 +87,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Pull all the patients from the remote bedside references and store them in a map
-	public HashMap<String,Patient> gatherBedsideUpdates(){
+	public HashMap<String,Patient> gatherBedsideUpdates()throws RemoteException{
 		HashMap<String,Patient> patientMap = new HashMap<String,Patient>();
 		ArrayList<BedsideSystem> bedList = getBedList();
 		for(int i = 0; i < bedList.size(); i ++){
@@ -94,7 +99,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Send Vital Alarm Acknowledgement via RMI
-	public void acknowledgeVitalAlarm(){
+	public void acknowledgeVitalAlarm()throws RemoteException{
 		
 	}
 }

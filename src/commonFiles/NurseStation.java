@@ -8,6 +8,6 @@ import commonFiles.Patient;
 
 public interface NurseStation extends Remote{
 	
-	public void updateBedsideLookup(String id);
+	public void updateBedsideLookup(String id)throws RemoteException;
 	
 }
