@@ -9,14 +9,13 @@ public class weight implements VitalAlgorithm {
 	VitalSensor sensor = new VitalSensor("weight");
 	
 	@Override
-	public int getValue(int rawMeasure) {
-		int realValue = MIN + ((MAX - MIN) * (rawMeasure/100) );
+	public int getValue(double rawMeasure) {
+		int realValue = (int) (MIN + ((MAX - MIN) * (rawMeasure/100) ));
 		return realValue;
 	}
 
 	public int getValue(){
-		int realValue = sensor.read();
+		double realValue = sensor.read();
 		return getValue(realValue);
 	}
-	
 }
