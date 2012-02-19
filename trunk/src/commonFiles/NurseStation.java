@@ -10,9 +10,9 @@ public interface NurseStation extends Remote{
 
 	public ArrayList<Patient> getPatientList() throws RemoteException;
 	
-	public void admitPatient(String name, int id) throws RemoteException;
+	public void admitPatient(String name, String id) throws RemoteException;
 	
 	public void updatePatientInfo(Patient p) throws RemoteException;
 	
-	public void acknowledgeVitalAlarm(Patient p) throws RemoteException;
+	public void acknowledgeVitalAlarm(BedsideSystem bs) throws RemoteException;
 }
