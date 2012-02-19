@@ -2,6 +2,16 @@ package vital;
 
 import java.util.ArrayList;
 
+/*
+ * @author Daniel J. Smith
+ * 
+ * Main interface for the Vitals / Sensors subsystem. 
+ * NOTE: We don't *really* have sensors ($$$), but we do have a simulation:
+ * To change the sensors' output, in VitalSensor  un-comment the desired
+ * return statement. For general / exhibitionary use, the HOLDING type is 
+ * probably good. 
+ */
+
 public class VitalParser {
 
 	String BLOOD_PRESSURE = "Blood Pressure";
@@ -25,13 +35,6 @@ public class VitalParser {
 		vitalSensors.add(new VitalData(HEART_RATE, 0));
 		vitalSensors.add(new VitalData(RESPIRATORY_RATE, 0));
 		vitalSensors.add(new VitalData(WEIGHT, 0));
-		/*
-		bp = new VitalType(new BloodPressure());
-		bt = new VitalType(new BodyTemperature());
-		hr = new VitalType(new HeartRate());
-		rr = new VitalType(new RespiratoryRate());
-		we = new VitalType(new weight());
-		*/
 	}
 	
 	public ArrayList<VitalData> getVitals(){
