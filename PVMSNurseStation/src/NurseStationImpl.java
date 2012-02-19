@@ -21,8 +21,11 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	// 5 - Provide Patient's Data for Display
 	
 	private HashMap<String,BedsideSystem> bedsideMap;
+	//The amount of milliseconds in between data pulls from the BedsideSystems
 	private int pullDelay = 2000;
+	//The timer to call the data pulls
 	private Timer updateClock = new Timer(true);
+	//The task the timer performs every delay
 	private class updateTask extends TimerTask{
 		public void run() {
 			gatherBedsideUpdates();
