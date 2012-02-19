@@ -1,17 +1,18 @@
-import java.io.IOException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
+import java.util.Timer;
 
 import commonFiles.Patient;
 import commonFiles.NurseStation;
 import commonFiles.BedsideSystem;
 
 public class NurseStationImpl extends UnicastRemoteObject implements NurseStation{
-
+	
+	private static final long serialVersionUID = 1L;
 	//The Nurses Station needs to:
 	// 1 - Create and store patient objects
 	// 2 - Assign patient objects to bedside systems (includes all alarms)
@@ -19,29 +20,43 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	// 4 - Send vital alarm acknowledgements
 	// 5 - Provide Patient's Data for Display
 	
-	
-	private static final long serialVersionUID = 1L;
-	
 	private HashMap<String,BedsideSystem> bedsideMap;
+	private int pullDelay = 2000;
+	private Timer updateClock = new Timer(true);
+	private class updateTask extends TimerTask{
+		public void run() {
+			gatherBedsideUpdates();
+			System.out.println("Updated Patient Information.");
+		}	
+	}
+	private updateTask task;
+	
 	
 	//Default Constructor
 	public NurseStationImpl() throws RemoteException{
 		bedsideMap = new HashMap<String,BedsideSystem>();
-	}
-		
-	//Collect an ArrayList of Patients from the ArrayList of Bedsides for display of Patient Vitals.
-	public ArrayList<Patient> getPatientList(){
-		ArrayList<Patient> patientList = new ArrayList<Patient>();
-		ArrayList<BedsideSystem> bedList = getBedList();
-		for(int i = 0; i < bedList.size(); i++){
-			//Get the patient object from the bedside system;
-		}
-		return patientList;
+		updateClock.schedule(task, pullDelay);
 	}
 	
+	//Receive knowledge that a bedside exists.
+	public void updateBedsideLookup(String id){
+		HashMap<String,BedsideSystem> tempBedMap = new HashMap<String,BedsideSystem>();
+		try{
+			System.setSecurityManager(new RMISecurityManager());
+			Registry registry = LocateRegistry.getRegistry();
+			tempBedMap.put(id, (BedsideSystem)registry.lookup(id));
+			bedsideMap = tempBedMap;
+		}
+		catch(Exception e){
+			System.err.println("Something went wrong while getting the bedsides.");
+		}
+	}
+	
+	//Collect an ArrayList of all the remote references to bedside systems from the map
 	public ArrayList<BedsideSystem> getBedList(){
 		ArrayList<BedsideSystem> bedList = new ArrayList<BedsideSystem>();
-		bedList.addAll(bedsideMap.values());
+		if(bedsideMap.isEmpty() != true)
+			bedList.addAll(bedsideMap.values());
 		return bedList;
 	}
 	
@@ -54,26 +69,29 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		}
 	}
 	
-	//Receive Patient Object via RMI
-	public void updatePatientInfo(Patient p){
-		patientMap.put(p.getID(),p);
+	//Tell the remote reference to a bedside system to discharge its patient
+	public void dischargePatient(BedsideSystem bs){
+		ArrayList<BedsideSystem> bedList = getBedList();
+		for(int i = 0; i < bedList.size(); i++){
+			//if bs = current BedsideSystem iteration of bedList
+			//then tell bedside system to discharge patient
+		}
+	}
+	
+	//Pull all the patients from the remote bedside references and store them in a map
+	public HashMap<String,Patient> gatherBedsideUpdates(){
+		HashMap<String,Patient> patientMap = new HashMap<String,Patient>();
+		ArrayList<BedsideSystem> bedList = getBedList();
+		for(int i = 0; i < bedList.size(); i ++){
+			Patient temp = bedList.get(i).getPatient();
+			if(temp != null)
+				patientMap.put(temp.getID(), temp);
+		}
+		return patientMap;
 	}
 	
 	//Send Vital Alarm Acknowledgement via RMI
-	public void acknowledgeVitalAlarm(BedsideSystem bs){
+	public void acknowledgeVitalAlarm(){
 		
-	}
-	
-	public void lookupBedsides(String[] id){
-		try{
-			System.setSecurityManager(new RMISecurityManager());
-			Registry registry = LocateRegistry.getRegistry();
-			for(int i = 0; i < id.length; i++){
-				bedsideMap.put(id[i], (BedsideSystem)registry.lookup(id[i]));
-			}
-		}
-		catch(Exception e){
-			System.err.println("Something went wrong while getting the bedsides.");
-		}
 	}
 }
