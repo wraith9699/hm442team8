@@ -14,6 +14,12 @@ public class Patient {
 		this.patientID = patientID;
 	}
 	
+	public Patient(String name, String patientID, ArrayList vitals){
+		this.name = name;
+		this.patientID = patientID;
+		this.vitalList = vitals;
+	}
+	
 	public void addVital(Vital newVital){
 		vitalList.add(newVital);
 	}
