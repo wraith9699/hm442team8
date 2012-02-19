@@ -48,15 +48,15 @@ public class BedsideSystem extends UnicastRemoteObject {
 	
 	//Constructor
 	public BedsideSystem (String patientName) throws IOException{
-		nurseStation = getNurseStation();
+		getNurseStation();
 	}
 	
 	public BedsideSystem () throws IOException{
-		nurseStation = getNurseStation();
+		getNurseStation();
 	}
 	
 	//Public
-	public NurseStation getNurseStation() throws RemoteException{
+	public void getNurseStation() throws RemoteException{
 		if (nurseStation == null){
 			try{
 				System.setSecurityManager( new RMISecurityManager());
