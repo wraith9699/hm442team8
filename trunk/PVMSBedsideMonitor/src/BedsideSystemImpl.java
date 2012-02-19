@@ -123,21 +123,21 @@ public class BedsideSystemImpl extends UnicastRemoteObject {
 
 	}
 	
-	public void updateNurseStation(){
+	public void updateNurseStation() throws RemoteException{
 		nurseStation.updatePatientInfo(patient);
 	}
 	
-	public void callNurse(){
+	public void callNurse() throws RemoteException{
 		setStatus(Status.CALLING);
 		updateNurseStation();
 	}
 	
-	public void resetBedside(){
+	public void resetBedside() throws RemoteException{
 		setStatus(Status.IDLE);
 		updateNurseStation();
 	}
 	
-	public void activateAlarm(){
+	public void activateAlarm() throws RemoteException{
 		setStatus(Status.ALARMED);
 		updateNurseStation();
 	}
