@@ -35,6 +35,10 @@ public class Patient {
 		return vitalList.get(vitalList.indexOf(desiredVital));
 	}
 	
+	public void setVitalList(ArrayList vitals){
+		vitalList = vitals;
+	}
+	
 	public ArrayList<Vital> getVitals(){
 		return vitalList;
 	}
