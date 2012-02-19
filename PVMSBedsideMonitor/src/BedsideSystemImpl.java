@@ -47,6 +47,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	private enum Status { IDLE, CALLING, ALARMED};
 	
 	private VitalParser sensorArray;
+	private BedsideUpdateManager bsManager;
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -67,6 +68,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
 		sensorArray = new VitalParser();
+		bsManager = new BedsideUpdateManager(this);
 	}
 	
 	public BedsideSystemImpl (String bedNumber) throws IOException{
@@ -75,6 +77,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
 		sensorArray = new VitalParser();
+		bsManager = new BedsideUpdateManager(this);
 	}
 	
 	public void registerBedside() throws RemoteException, MalformedURLException{
