@@ -10,6 +10,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import vital.VitalParser;
+
 import commonFiles.BedsideSystem;
 import commonFiles.NurseStation;
 
@@ -42,9 +44,9 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	private String bedID;
 	
 	private Status currentStatus;
-	
 	private enum Status { IDLE, CALLING, ALARMED};
 	
+	private VitalParser sensorArray;
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -64,6 +66,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		patient = new Patient(patientName, bedID);
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
+		sensorArray = new VitalParser();
 	}
 	
 	public BedsideSystemImpl (String bedNumber) throws IOException{
@@ -71,12 +74,17 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		this.bedID = bedID;
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
+		sensorArray = new VitalParser();
 	}
 	
 	public void registerBedside() throws RemoteException, MalformedURLException{
 		Naming.rebind(bedID, this);
 	}
 	
+	public VitalParser getSensorArray() {
+		return sensorArray;
+	}
+
 	public Patient getPatient() {
 		return patient;
 	}
