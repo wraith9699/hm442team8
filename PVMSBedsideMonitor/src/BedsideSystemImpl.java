@@ -10,6 +10,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import commonFiles.BedsideSystem;
 import commonFiles.NurseStation;
 
 import commonFiles.Patient;
@@ -20,7 +21,7 @@ import commonFiles.Patient;
 //display specific vital trend
 //register to registry server (done)
 //send patient object to server (done)
-//set patient's info (done)
+//set patient's info
 //enable/disable sensors
 //set Timer
 //accept patient assignment from server (done)
@@ -28,7 +29,7 @@ import commonFiles.Patient;
 //Note: All Alarms, Calls, and Vital updates are sent with the Patient object, which is sent at the time the sensors update the Patient's info
 
 
-public class BedsideSystemImpl extends UnicastRemoteObject {
+public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSystem{
 
 	
 	//Constants
@@ -106,9 +107,9 @@ public class BedsideSystemImpl extends UnicastRemoteObject {
 		}
 	}
 	
-	public boolean acceptPatient(Patient newPatient){
+	public boolean acceptPatient(String name, String id){
 		if (isEmpty()){
-			patient = newPatient;
+			patient = new Patient(name, id);
 			return true;
 		}else{
 			return false;
