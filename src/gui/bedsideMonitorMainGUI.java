@@ -44,7 +44,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 		JButton btnLog = new JButton("Log");
 		btnLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			}
+				logGUI logGui = new logGUI();
+				logGui.setAlwaysOnTop(true);
+				logGui.setVisible(true);			}
 		});
 		btnLog.setBounds(384, 9, 135, 57);
 		contentPane.add(btnLog);
