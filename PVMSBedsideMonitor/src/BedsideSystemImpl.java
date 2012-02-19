@@ -63,12 +63,14 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		this.bedID = bedID;
 		patient = new Patient(patientName, bedID);
 		registerBedside();
+		nurseStation.updateBedsideLookup(bedID);
 	}
 	
 	public BedsideSystemImpl (String bedNumber) throws IOException{
 		getNurseStation();
 		this.bedID = bedID;
 		registerBedside();
+		nurseStation.updateBedsideLookup(bedID);
 	}
 	
 	public void registerBedside() throws RemoteException, MalformedURLException{
@@ -120,12 +122,12 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		}
 	}
 	
-	public void updateVitals(){
-		patient.setVitalList(vitals);
+	public void updateVitals(ArrayList vitalData){
+		patient.updateCurrentVitals(vitalData);
 	}
 	
 	public void updateNurseStation() throws RemoteException{
-		nurseStation.updatePatientInfo(patient);
+		//nurseStation.updatePatientInfo(patient);
 	}
 	
 	public void callNurse() throws RemoteException{
@@ -145,6 +147,11 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public void setStatus(Status newStatus){
 		currentStatus = newStatus;
+	}
+	
+	public void dischargePatient() throws RemoteException{
+		patient = null;
+		updateNurseStation();
 	}
 	
 	public boolean isEmpty(){
