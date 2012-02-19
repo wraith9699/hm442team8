@@ -10,4 +10,6 @@ public interface NurseStation extends Remote{
 	
 	public void updateBedsideLookup(String id)throws RemoteException;
 	
+	public void acknowledgeVitalAlarm()throws RemoteException;
+	
 }
