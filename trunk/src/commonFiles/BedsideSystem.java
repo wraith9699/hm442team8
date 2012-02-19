@@ -1,7 +1,9 @@
 package commonFiles;
 
+import java.rmi.RemoteException;
+
 public interface BedsideSystem {
-	public boolean acceptPatient(String name, String id);
-	public Patient getPatient();
-	public boolean isEmpty();
+	public boolean acceptPatient(String name, String id)throws RemoteException;
+	public Patient getPatient()throws RemoteException;
+	public boolean isEmpty()throws RemoteException;
 }
