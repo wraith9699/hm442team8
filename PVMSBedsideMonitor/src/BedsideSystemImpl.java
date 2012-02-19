@@ -21,7 +21,7 @@ import commonFiles.Patient;
 //display specific vital trend
 //register to registry server (done)
 //send patient object to server (done)
-//set patient's info
+//set patient's info (done)
 //enable/disable sensors
 //set Timer
 //accept patient assignment from server (done)
@@ -75,6 +75,10 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		Naming.rebind(bedID, this);
 	}
 	
+	public Patient getPatient() {
+		return patient;
+	}
+
 	public String getBedNumber() {
 		return bedID;
 	}
@@ -116,12 +120,8 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		}
 	}
 	
-	public void setPatientInfo(){
-		
-	}
-	
-	public void getVitals(){
-
+	public void updateVitals(){
+		patient.setVitalList(vitals);
 	}
 	
 	public void updateNurseStation() throws RemoteException{
