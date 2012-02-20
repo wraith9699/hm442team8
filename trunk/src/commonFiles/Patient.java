@@ -11,16 +11,17 @@ import vital.VitalData;
 public class Patient implements Serializable {
 	private String name;
 	private String patientID;
-	private HashMap vitalList = new HashMap();
+	private HashMap <String, Vital> vitalList;
 
 	public Patient(String name, String patientID){
 		this.name = name;
 		this.patientID = patientID;
-		vitalList.put("BLOOD_PRESSURE", new Vital("bPressure", 0));
-		vitalList.put("BODY_TEMPERATURE", new Vital("bPressure", 0));
-		vitalList.put("HEART_RATE", new Vital("hRate", 0));
-		vitalList.put("RESPIRATORY_RATE", new Vital("rRate", 0));
-		vitalList.put("WEIGHT", new Vital("weight", 0));
+		this.vitalList = new HashMap();
+		vitalList.put("Blood Pressure", new Vital("bPressure", 119, 111, 121, 109));
+		vitalList.put("Body Temperature", new Vital("bTemperature", 101, 94, 104, 90));
+		vitalList.put("Heart Rate", new Vital("hRate", 104, 56, 106, 54));
+		vitalList.put("Respiratory Rate", new Vital("rRate", 29, 21, 31, 19));
+		vitalList.put("Weight", new Vital("weight", 250, 111, 300, 109));
 	}
 	
 	public Patient(String name, String patientID, HashMap vitals){
@@ -29,9 +30,11 @@ public class Patient implements Serializable {
 		this.vitalList = vitals;
 	}
 	
-	public void updateCurrentVitals(HashMap vitalData){
+	public void updateCurrentVitals(HashMap <String, Integer> vitalData){
 		for (Object i : vitalData.keySet().toArray()){
-			vitalList.put(i, vitalData.get(i));
+			//System.out.println(i + " " + vitalList.get(i));
+			vitalList.get(i).setCurrent(vitalData.get(i));
+			//put(i, vitalData.get(i));
 			System.out.println("Patient " + name + " " + i + " = " + vitalData.get(i));
 		}
 	}

@@ -10,10 +10,6 @@ public class Vital implements Serializable {
 	private int highHigh;
 	private int lowLow;
 	private VitalTrend trend;
-	private boolean isHigh;
-	private boolean isLow;
-	private boolean isHighHigh;
-	private boolean isLowLow; 
 	public Vital( String name, int currentValue ){
 		this.name = name;
 		this.currentValue = currentValue;
@@ -68,39 +64,27 @@ public class Vital implements Serializable {
 		return trend;
 	}
 	
-	public boolean getIsHigh(){
-		return isHigh;
-	}
-	
-	public boolean getIsLow(){
-		return isLow;
-	}
-	
-	public void setIsHigh( boolean isHigh){
-		this.isHigh = isHigh;
-	}
-	
-	public void setIsLow( boolean isLow ){
-		this.isLow = isLow;
-	}
-	
-	public void setIsHighHigh( boolean isHighHigh ){
-		this.isHighHigh = isHighHigh;
-	}
-	
-	public void setIsLowLow( boolean isLowLow ){
-		this.isLowLow = isLowLow;
-	}
-	
 	public void setCurrent( int currentValue ){
 		this.currentValue = currentValue;
 	}
 	
-	public boolean getisHighHigh(){
-		return isHighHigh;
+	public boolean isHigh(){
+		return currentValue > highValue;
 	}
 	
-	public boolean getisLowLow(){
-		return isLowLow;
+	public boolean isLow(){
+		return currentValue < lowValue;
+	}
+	
+	public boolean isHighHigh(){
+		return currentValue > highHigh;
+	}
+	
+	public boolean isLowLow(){
+		return currentValue < lowLow;
+	}
+	
+	public boolean isCritical(){
+		return isLowLow() || isHighHigh();
 	}
 }
