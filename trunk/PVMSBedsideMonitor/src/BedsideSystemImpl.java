@@ -149,17 +149,21 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public void callNurse() throws RemoteException{
 		setStatus(Status.CALLING);
-		updateNurseStation();
+		nurseStation.alaramTriggered(bedID)
 	}
 	
-	public void resetBedside() throws RemoteException{
+	public void resetAlarm() throws RemoteException{
 		setStatus(Status.IDLE);
-		updateNurseStation();
+		;
+	}
+	
+	private void resetCall(){
+		setStatus(Status.IDLE);
 	}
 	
 	public void activateAlarm() throws RemoteException{
 		setStatus(Status.ALARMED);
-		updateNurseStation();
+		nurseStation.alaramTriggered(bedID);
 	}
 	
 	public void setStatus(Status newStatus){
