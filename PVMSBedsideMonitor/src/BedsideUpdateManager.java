@@ -1,3 +1,4 @@
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +27,12 @@ class SensorPoll extends TimerTask {
 	
 	public void run() {
 		//System.out.println(bedside.getSensorArray().getVitals());
-		bedside.updateVitals(bedside.getSensorArray().getVitals());
+		try {
+			bedside.updateVitals(bedside.getSensorArray().getVitals());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 }

@@ -15,6 +15,7 @@ import vital.VitalParser;
 
 import commonFiles.BedsideSystem;
 import commonFiles.NurseStation;
+import commonFiles.Vital;
 
 import commonFiles.Patient;
 
@@ -60,6 +61,8 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 			//((BedsideSystemImpl) beds.get(i)).registerBedside();
 			//((BedsideSystemImpl) beds.get(i)).rmiTest();
 		}
+		
+		
 
 	}
 	
@@ -139,9 +142,16 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		}
 	}
 	
-	public void updateVitals(HashMap vitalData){
+	public void updateVitals(HashMap vitalData) throws RemoteException{
 		//System.out.println(vitalData);
 		patient.updateCurrentVitals(vitalData);
+		for (Object i : patient.getVitals().keySet().toArray()){
+			Vital currentVital = (Vital) patient.getVitals().get(i);
+			if (currentVital.isCritical()){
+				System.out.println(bedID + " alarm triggered!");
+				activateAlarm();
+			}
+		}
 	}
 	
 	public void updateNurseStation() throws RemoteException{
