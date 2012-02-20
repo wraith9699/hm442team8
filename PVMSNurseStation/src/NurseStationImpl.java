@@ -1,5 +1,7 @@
 //TODO: acknowledgeVitalAlarm
 
+//When an alarm is triggered at the bedside system,it will call a method at the nurses station to trigger and alarm
+
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
@@ -117,7 +119,18 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		if(bedList.size()>1){
 			for(int i = 0; i < bedList.size(); i++){
 				if(bedList.get(i).getPatient() == p){
-					//Reset Vital Alarm
+					bedList.get(i).resetBedside();
+				}
+			}
+		}
+	}
+	
+	public void alarmTrigger(String id) throws RemoteException{
+		ArrayList<BedsideSystem> bedList = getBedList();
+		if(bedList.size() > 0){
+			for(int i = 0; i < bedList.size(); i++){
+				if(bedList.get(i).getBedNumber().equals(id)){
+					//call method in gui to trigger alarm
 				}
 			}
 		}
