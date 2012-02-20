@@ -15,7 +15,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JTextField textField;
 	private JButton btnCallButton = new JButton("Call Button");
 	Timer callTimer = new Timer(500, new Blinker());
-	Timer refresher = new Timer(500, new guiUpdater());
+	//Timer refresher = new Timer(500, new guiUpdater());
 	private BedsideSystemImpl bedside;
 	/**
 	 * Launch the application.
@@ -110,7 +110,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 		JLabel lblPatient = new JLabel("Patient:");
 		lblPatient.setBounds(10, 15, 46, 14);
 		contentPane.add(lblPatient);		
-		refresher.start();
+		//refresher.start();
 		vitalPanel = new JPanel();
 		vitalPanel.setBackground(Color.white);
 		vitalPanel.setBounds(10,150,510,365);
@@ -128,15 +128,15 @@ public class bedsideMonitorMainGUI extends JFrame{
             on = !on;
         }
     }
-	class guiUpdater implements ActionListener{
+	/*class guiUpdater implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             //repaint the gui
         	updateDisplayInfo();
         	contentPane.repaint();
         }
-    }
+    }*/
 	
-	public void updateDisplayInfo(){
+	/*public void updateDisplayInfo(){
 		Patient p = bedside.getPatient();
 		if(p == null){
 			textField.setText("Empty");
@@ -158,5 +158,5 @@ public class bedsideMonitorMainGUI extends JFrame{
 			vitalPanel.setBounds(200,250,400,450);
 			contentPane.add(vitalPanel);
 		}
-	}
+	}*/
 }
