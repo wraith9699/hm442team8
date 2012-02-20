@@ -5,6 +5,8 @@ package commonFiles;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import vital.VitalData;
+
 public class Patient {
 	private String name;
 	private String patientID;
@@ -26,12 +28,17 @@ public class Patient {
 		this.vitalList = vitals;
 	}
 	
-	public void updateCurrentVitals(ArrayList vitalData){
-		((Vital) vitalList.get("bloodPressure")).setCurrent((Integer) vitalData.get(0));
-		((Vital) vitalList.get("bodyTemperature")).setCurrent((Integer) vitalData.get(1));
-		((Vital) vitalList.get("heartRate")).setCurrent((Integer) vitalData.get(2));
-		((Vital) vitalList.get("respiratoryRate")).setCurrent((Integer) vitalData.get(3));
-		((Vital) vitalList.get("weight")).setCurrent((Integer) vitalData.get(4));
+	public void updateCurrentVitals(ArrayList <VitalData> vitalData){
+		((Vital) vitalList.get("bloodPressure")).setCurrent(vitalData.get(0).getValue());
+		//System.out.println("bp set");
+		((Vital) vitalList.get("bodyTemperature")).setCurrent(vitalData.get(1).getValue());
+		//System.out.println("bt set");
+		((Vital) vitalList.get("heartRate")).setCurrent(vitalData.get(2).getValue());
+		//System.out.println("hr set");
+		((Vital) vitalList.get("respiratoryRate")).setCurrent(vitalData.get(3).getValue());
+		//System.out.println("rr set");
+		((Vital) vitalList.get("weight")).setCurrent(vitalData.get(4).getValue());
+		System.out.println("w set");
 	}
 	
 	public void addVital(Vital newVital){
