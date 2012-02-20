@@ -9,5 +9,6 @@ public interface BedsideSystem {
 	public void dischargePatient() throws RemoteException;
 	public void resetBedside() throws RemoteException;
 	public String getBedNumber() throws RemoteException;
+	public void resetAlarm() throws RemoteException;
 	
 }
