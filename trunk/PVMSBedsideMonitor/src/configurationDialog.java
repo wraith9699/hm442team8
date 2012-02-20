@@ -1,4 +1,6 @@
-package gui;
+
+import gui.calibrationDialog;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

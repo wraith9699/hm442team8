@@ -62,4 +62,8 @@ public class Patient implements Serializable {
 		return patientID;
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
 }
