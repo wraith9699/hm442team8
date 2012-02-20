@@ -11,7 +11,7 @@ import commonFiles.Vital;
 
 public class bedsideMonitorMainGUI extends JFrame{
 
-	private JPanel contentPane;
+	private JPanel contentPane, vitalPanel;
 	private JTextField textField;
 	private JButton btnCallButton = new JButton("Call Button");
 	Timer callTimer = new Timer(500, new Blinker());
@@ -20,7 +20,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -31,14 +31,15 @@ public class bedsideMonitorMainGUI extends JFrame{
 				}
 			}
 		});
-	}*/
+	}
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public bedsideMonitorMainGUI(BedsideSystemImpl bedside){
-		this.bedside = bedside;
+	public bedsideMonitorMainGUI(){
+		//this.bedside = bedside;
+		bedside = null;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 552);
 		contentPane = new JPanel();
@@ -110,6 +111,10 @@ public class bedsideMonitorMainGUI extends JFrame{
 		lblPatient.setBounds(10, 15, 46, 14);
 		contentPane.add(lblPatient);		
 		refresher.start();
+		vitalPanel = new JPanel();
+		vitalPanel.setBackground(Color.white);
+		vitalPanel.setBounds(10,150,510,365);
+		contentPane.add(vitalPanel);
 				
 	}
 
@@ -140,7 +145,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 			textField.setText(p.getName());
 			//Create and display the vital section
 			ArrayList<Vital> vitalList = (ArrayList<Vital>)p.getVitals().values();
-			JPanel vitalPanel = new JPanel(new GridLayout(vitalList.size(),2));
+			vitalPanel.setLayout(new GridLayout(vitalList.size(),2));
 			JLabel[] vitalLBL = new JLabel[vitalList.size()];
 			JTextField[] vitalTF = new JTextField[vitalList.size()];
 			for(int i = 0; i < vitalList.size(); i++){
