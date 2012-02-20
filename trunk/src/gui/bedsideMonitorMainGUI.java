@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class bedsideMonitorMainGUI extends JFrame{
 
@@ -35,20 +36,27 @@ public class bedsideMonitorMainGUI extends JFrame{
 	 */
 	public bedsideMonitorMainGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 558, 561);
+		setBounds(100, 100, 536, 552);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		JButton btnLog = new JButton("Log");
 		btnLog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				logGUI logGui = new logGUI();
+				logGUI logGui = null;
+				try {
+					logGui = new logGUI();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				logGui.setAlwaysOnTop(true);
 				logGui.setVisible(true);			}
 		});
-		btnLog.setBounds(384, 9, 135, 57);
+		btnLog.setBounds(370, 9, 135, 57);
 		contentPane.add(btnLog);
 		
 		JButton btnSettings = new JButton("Configuration");
@@ -59,7 +67,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 				cfD.setVisible(true);
 			}
 		});
-		btnSettings.setBounds(384, 77, 135, 57);
+		btnSettings.setBounds(370, 77, 135, 57);
 		contentPane.add(btnSettings);
 		
 		JButton btnCallReset = new JButton("Call Reset");
@@ -70,7 +78,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 				btnCallButton.setForeground(Color.BLACK);
 			}
 		});
-		btnCallReset.setBounds(226, 77, 135, 57);
+		btnCallReset.setBounds(205, 77, 135, 57);
 		contentPane.add(btnCallReset);
 		
 		JButton btnAlarmReset = new JButton("Alarm Reset");
@@ -78,7 +86,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAlarmReset.setBounds(226, 9, 135, 57);
+		btnAlarmReset.setBounds(205, 9, 135, 57);
 		contentPane.add(btnAlarmReset);
 		
 		

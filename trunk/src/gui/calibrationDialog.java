@@ -50,6 +50,7 @@ public class calibrationDialog extends JDialog {
 	public calibrationDialog() {
 		setBounds(100, 100, 1124, 536);
 		getContentPane().setLayout(null);
+		setResizable(false);
 		contentPanel.setBounds(0, 0, 0, 0);
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
