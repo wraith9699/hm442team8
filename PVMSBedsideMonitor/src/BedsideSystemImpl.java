@@ -55,7 +55,9 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		ArrayList beds = new ArrayList();
 		
 		for (int i = 0; i < Integer.parseInt(args[0]); i++){
-			beds.add(new BedsideSystemImpl("bd" + i));
+			beds.add(new BedsideSystemImpl("Dante", "bd" + i));
+			//((BedsideSystemImpl) beds.get(i)).registerBedside();
+			//((BedsideSystemImpl) beds.get(i)).rmiTest();
 		}
 
 	}
@@ -69,18 +71,21 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		nurseStation.updateBedsideLookup(bedID);
 		sensorArray = new VitalParser();
 		bsManager = new BedsideUpdateManager(this);
+		this.rmiTest();
 	}
 	
-	public BedsideSystemImpl (String bedNumber) throws IOException{
+	public BedsideSystemImpl (String bedID) throws IOException{
 		getNurseStation();
 		this.bedID = bedID;
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
 		sensorArray = new VitalParser();
 		bsManager = new BedsideUpdateManager(this);
+		this.rmiTest();
 	}
 	
 	public void registerBedside() throws RemoteException, MalformedURLException{
+		//System.out.println(bedID + "\n" + this);
 		Naming.rebind(bedID, this);
 	}
 	
@@ -134,6 +139,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	}
 	
 	public void updateVitals(ArrayList vitalData){
+		System.out.println(vitalData);
 		patient.updateCurrentVitals(vitalData);
 	}
 	
@@ -167,6 +173,10 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public boolean isEmpty(){
 		return patient == null;
+	}
+	
+	public void rmiTest() throws RemoteException{
+		nurseStation.acknowledgeVitalAlarm();
 	}
 	
 	

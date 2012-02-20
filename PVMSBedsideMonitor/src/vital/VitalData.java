@@ -3,7 +3,7 @@ package vital;
 public class VitalData {
 
 	private String name;
-	private int value;
+	public int value;
 	
 	public VitalData(){
 		name = "";
