@@ -2,6 +2,8 @@ package vital;
 
 import java.util.ArrayList;
 
+import vital.VitalData;
+
 /*
  * @author Daniel J. Smith
  * 
@@ -37,10 +39,11 @@ public class VitalParser {
 		vitalSensors.add(new VitalData(WEIGHT, 0));
 	}
 	
-	public ArrayList<VitalData> getVitals(){
+	public HashMap<String, int> getVitals(){
 		
 		//ArrayList<VitalData> vitalSensors = new ArrayList<VitalData>();
 		ArrayList<VitalData> vitals = new ArrayList<VitalData>();
+		HashMap<String, int> vitalMap = new HashMap<String, int>();
 		
 		int v = vitalSensors.size();
 		for(int i = 0; i < v; i++){
@@ -65,8 +68,14 @@ public class VitalParser {
 			vitals.add(datum);
 		}
 		
-		//return new ArrayList<VitalData>();
-		return vitals;
+		for(int i = 0; i < vitals.size(); i++){
+			VitalData vd = vitals.get(i);
+			String vitalName = vd.getName();
+			String vitalValue = vd.getValue();
+			vitalMap.put(vitalName, vitalValue);
+		}
+		
+		return vitalMap;
 	}
 	
 }
