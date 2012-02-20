@@ -136,15 +136,4 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		}
 	}
 
-	@Override
-	public void acknowledgeVitalAlarm() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void alarmTriggered(String bedID) {
-		// TODO Auto-generated method stub
-		
-	}
 }
