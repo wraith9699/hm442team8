@@ -9,6 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vital.VitalParser;
 
@@ -55,7 +56,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		ArrayList beds = new ArrayList();
 		
 		for (int i = 0; i < Integer.parseInt(args[0]); i++){
-			beds.add(new BedsideSystemImpl("Dante", "bd" + i));
+			beds.add(new BedsideSystemImpl("Dante" + i, "bd" + i));
 			//((BedsideSystemImpl) beds.get(i)).registerBedside();
 			//((BedsideSystemImpl) beds.get(i)).rmiTest();
 		}
@@ -138,8 +139,8 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		}
 	}
 	
-	public void updateVitals(ArrayList vitalData){
-		System.out.println(vitalData);
+	public void updateVitals(HashMap vitalData){
+		//System.out.println(vitalData);
 		patient.updateCurrentVitals(vitalData);
 	}
 	
@@ -149,7 +150,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public void callNurse() throws RemoteException{
 		setStatus(Status.CALLING);
-		nurseStation.alaramTriggered(bedID)
+		nurseStation.alaramTriggered(bedID);
 	}
 	
 	public void resetAlarm() throws RemoteException{
