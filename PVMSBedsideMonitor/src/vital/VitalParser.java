@@ -1,6 +1,7 @@
 package vital;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import vital.VitalData;
 
@@ -39,11 +40,11 @@ public class VitalParser {
 		vitalSensors.add(new VitalData(WEIGHT, 0));
 	}
 	
-	public HashMap <String, int> getVitals(){
+	public HashMap getVitals(){
 		
 		//ArrayList<VitalData> vitalSensors = new ArrayList<VitalData>();
 		ArrayList<VitalData> vitals = new ArrayList<VitalData>();
-		HashMap <String, int> vitalMap = new HashMap<String, int>();
+		HashMap vitalMap = new HashMap();
 		
 		int v = vitalSensors.size();
 		for(int i = 0; i < v; i++){
@@ -71,7 +72,7 @@ public class VitalParser {
 		for(int i = 0; i < vitals.size(); i++){
 			VitalData vd = vitals.get(i);
 			String vitalName = vd.getName();
-			String vitalValue = vd.getValue();
+			int vitalValue = vd.getValue();
 			vitalMap.put(vitalName, vitalValue);
 		}
 		
