@@ -119,7 +119,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		if(bedList.size()>1){
 			for(int i = 0; i < bedList.size(); i++){
 				if(bedList.get(i).getPatient() == p){
-					bedList.get(i).resetBedside();
+					bedList.get(i).resetAlarm();
 				}
 			}
 		}
@@ -134,5 +134,17 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 				}
 			}
 		}
+	}
+
+	@Override
+	public void acknowledgeVitalAlarm() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void alarmTriggered(String bedID) {
+		// TODO Auto-generated method stub
+		
 	}
 }
