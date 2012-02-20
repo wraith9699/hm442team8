@@ -25,6 +25,7 @@ class SensorPoll extends TimerTask {
 	}
 	
 	public void run() {
+		//System.out.println(bedside.getSensorArray().getVitals());
 		bedside.updateVitals(bedside.getSensorArray().getVitals());
 	}
 }
