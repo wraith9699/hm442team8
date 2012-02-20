@@ -2,12 +2,13 @@ package commonFiles;
 
 //Test
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import vital.VitalData;
 
-public class Patient {
+public class Patient implements Serializable {
 	private String name;
 	private String patientID;
 	private HashMap vitalList = new HashMap();
@@ -31,6 +32,7 @@ public class Patient {
 	public void updateCurrentVitals(HashMap vitalData){
 		for (Object i : vitalData.keySet().toArray()){
 			vitalList.put(i, vitalData.get(i));
+			System.out.println("Patient " + name + " " + i + " = " + vitalData.get(i));
 		}
 	}
 	

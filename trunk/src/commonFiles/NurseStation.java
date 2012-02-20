@@ -12,4 +12,5 @@ public interface NurseStation extends Remote{
 	
 	public void acknowledgeVitalAlarm(Patient p)throws RemoteException;
 	
+	public void alarmTrigger(String bedID) throws RemoteException;
 }

@@ -6,6 +6,7 @@ package vital;
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VitalUnitTest {
 
@@ -13,13 +14,13 @@ public class VitalUnitTest {
 
 		VitalParser parser = new VitalParser();
 
-		ArrayList<VitalData> returnedData = parser.getVitals();
+		HashMap returnedData = parser.getVitals();
 
 		for (int x = 0; x < 10; x++) {
 			System.out.println("Trial #" + (x + 1));
 			returnedData = parser.getVitals();
 			for (int i = 0; i < returnedData.size(); i++) {
-				VitalData data = returnedData.get(i);
+				VitalData data = (VitalData) returnedData.get(i);
 				System.out.println(data.getName() + " has a reading of "
 						+ data.getValue());
 			}

@@ -150,7 +150,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public void callNurse() throws RemoteException{
 		setStatus(Status.CALLING);
-		nurseStation.alarmTriggered(bedID);
+		nurseStation.alarmTrigger(bedID);
 	}
 	
 	public void resetAlarm() throws RemoteException{
@@ -164,7 +164,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public void activateAlarm() throws RemoteException{
 		setStatus(Status.ALARMED);
-		nurseStation.alarmTriggered(bedID);
+		nurseStation.alarmTrigger(bedID);
 	}
 	
 	public void setStatus(Status newStatus){
@@ -181,7 +181,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	}
 	
 	public void rmiTest() throws RemoteException{
-		nurseStation.acknowledgeVitalAlarm();
+		nurseStation.acknowledgeVitalAlarm(patient);
 	}
 	
 	
