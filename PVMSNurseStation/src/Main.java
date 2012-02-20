@@ -8,7 +8,7 @@ public class Main {
 	//Default Constructor
 	public Main(){
 		try{
-			startRegistry();
+			//startRegistry();
 			startStation();
 		}
 		catch(Exception e){
