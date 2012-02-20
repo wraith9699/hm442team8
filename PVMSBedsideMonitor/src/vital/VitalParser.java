@@ -39,11 +39,11 @@ public class VitalParser {
 		vitalSensors.add(new VitalData(WEIGHT, 0));
 	}
 	
-	public HashMap<String, int> getVitals(){
+	public HashMap <String, int> getVitals(){
 		
 		//ArrayList<VitalData> vitalSensors = new ArrayList<VitalData>();
 		ArrayList<VitalData> vitals = new ArrayList<VitalData>();
-		HashMap<String, int> vitalMap = new HashMap<String, int>();
+		HashMap <String, int> vitalMap = new HashMap<String, int>();
 		
 		int v = vitalSensors.size();
 		for(int i = 0; i < v; i++){
