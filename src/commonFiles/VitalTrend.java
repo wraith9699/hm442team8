@@ -1,8 +1,9 @@
 package commonFiles;
 
+import java.io.Serializable;
 import java.util.Queue;
 
-public class VitalTrend {
+public class VitalTrend implements Serializable {
 
 	private int measurementPeriod;
 	private Queue<Vital> vitalQueue;

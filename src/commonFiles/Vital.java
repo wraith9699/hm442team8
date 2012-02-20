@@ -1,6 +1,8 @@
 package commonFiles;
 
-public class Vital {
+import java.io.Serializable;
+
+public class Vital implements Serializable {
 	private String name;
 	private int currentValue;
 	private int highValue;

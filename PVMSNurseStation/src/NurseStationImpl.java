@@ -44,7 +44,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 			System.out.println("Updated Patient Information.");
 		}	
 	}
-	private updateTask task;
+	private updateTask task = new updateTask();
 	
 	/* Functions */
 	
@@ -60,7 +60,8 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 		try{
 			System.setSecurityManager(new RMISecurityManager());
 			Registry registry = LocateRegistry.getRegistry();
-			tempBedMap.put(id,(BedsideSystem)registry.lookup(id));
+			BedsideSystem tempBed = (BedsideSystem)registry.lookup(id);
+			tempBedMap.put(id, tempBed);
 			bedsideMap = tempBedMap;
 		}
 		catch(IOException e){
@@ -114,7 +115,7 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 	}
 	
 	//Send Vital Alarm Acknowledgement via RMI
-	public void acknowledgeVitalAlarm(Patient p)throws RemoteException{
+	public void acknowledgeVitalAlarm1(Patient p)throws RemoteException{
 		ArrayList<BedsideSystem> bedList = getBedList();
 		if(bedList.size()>1){
 			for(int i = 0; i < bedList.size(); i++){
@@ -135,5 +136,16 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 			}
 		}
 	}
+	
+	public void rmiTest(){
+		System.out.println("RMI is functional!");
+	}
+
+	@Override
+	public void acknowledgeVitalAlarm(Patient p) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
