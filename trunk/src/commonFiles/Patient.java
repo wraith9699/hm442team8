@@ -15,11 +15,11 @@ public class Patient {
 	public Patient(String name, String patientID){
 		this.name = name;
 		this.patientID = patientID;
-		vitalList.put("bloodPressure", new Vital("bPressure", 0));
-		vitalList.put("bodyTemperature", new Vital("bPressure", 0));
-		vitalList.put("heartRate", new Vital("hRate", 0));
-		vitalList.put("respiratoryRate", new Vital("rRate", 0));
-		vitalList.put("weight", new Vital("weight", 0));
+		vitalList.put("BLOOD_PRESSURE", new Vital("bPressure", 0));
+		vitalList.put("BODY_TEMPERATURE", new Vital("bPressure", 0));
+		vitalList.put("HEART_RATE", new Vital("hRate", 0));
+		vitalList.put("RESPIRATORY_RATE", new Vital("rRate", 0));
+		vitalList.put("WEIGHT", new Vital("weight", 0));
 	}
 	
 	public Patient(String name, String patientID, HashMap vitals){
@@ -28,17 +28,10 @@ public class Patient {
 		this.vitalList = vitals;
 	}
 	
-	public void updateCurrentVitals(ArrayList <VitalData> vitalData){
-		((Vital) vitalList.get("bloodPressure")).setCurrent(vitalData.get(0).getValue());
-		//System.out.println("bp set");
-		((Vital) vitalList.get("bodyTemperature")).setCurrent(vitalData.get(1).getValue());
-		//System.out.println("bt set");
-		((Vital) vitalList.get("heartRate")).setCurrent(vitalData.get(2).getValue());
-		//System.out.println("hr set");
-		((Vital) vitalList.get("respiratoryRate")).setCurrent(vitalData.get(3).getValue());
-		//System.out.println("rr set");
-		((Vital) vitalList.get("weight")).setCurrent(vitalData.get(4).getValue());
-		System.out.println("w set");
+	public void updateCurrentVitals(HashMap vitalData){
+		for (Object i : vitalData.keySet().toArray()){
+			vitalList.put(i, vitalData.get(i));
+		}
 	}
 	
 	public void addVital(Vital newVital){
