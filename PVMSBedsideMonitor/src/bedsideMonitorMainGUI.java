@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import commonFiles.BedsideSystem.Status;
 import commonFiles.Patient;
 import commonFiles.Vital;
 import org.jfree.chart.*;
@@ -26,6 +27,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JButton btnCallButton = new JButton("Call Button");
 	private Timer callTimer = new Timer(500, new Blinker());
 	private Timer alarmTimer = new Timer(400, new Alarmer());
+	private Timer dataUpdate = new Timer(2000, new Update());
 	private bedsideMonitorMainGUI frame = null;
 	public Boolean sensors[] = { true, true, true, true, true };
 	private JTextField textField_1;
@@ -119,7 +121,8 @@ public class bedsideMonitorMainGUI extends JFrame{
 		JButton btnAlarmReset = new JButton("Alarm Reset");
 		btnAlarmReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				alarmTimer.stop();
+				
+				reset();
 				getContentPane().setBackground(null);
 			}
 		});
@@ -208,13 +211,15 @@ public class bedsideMonitorMainGUI extends JFrame{
 		contentPane.add(chartPanel);
 		//vitalPanel.add(chartPanel);
 		
-				
 	}
 	
 	public void alarm(){
 		alarmTimer.start();
 	}
 	
+	public void reset(){
+		alarmTimer.stop();
+	}
 	public void setSensors( Boolean[] sensors ){
 		this.sensors = sensors;
 		//System.out.println( sensors[0] + " " + sensors[1] + sensors[2] + " " + sensors[3] + " " + sensors[4]);
@@ -326,6 +331,16 @@ public class bedsideMonitorMainGUI extends JFrame{
 			//btnCallButton.setForeground(Color.BLACK);
         	getContentPane().setBackground( on ? Color.RED : null);
             on = !on;
+        }
+    }
+	class Update implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+        	if( bedside.getCurrentStatus().equals(Status.ALARMED) ){
+        		alarm();
+        	}
+        	else if(  bedside.getCurrentStatus().equals(Status.IDLE)){
+        		reset();
+        	}        
         }
     }
 	
