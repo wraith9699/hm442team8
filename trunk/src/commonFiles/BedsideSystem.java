@@ -4,6 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface BedsideSystem extends Remote {
+	
+	public enum Status { IDLE, CALLING, ALARMED};
 	public boolean acceptPatient(String name, String id)throws RemoteException;
 	public Patient getPatient()throws RemoteException;
 	public boolean isEmpty()throws RemoteException;
