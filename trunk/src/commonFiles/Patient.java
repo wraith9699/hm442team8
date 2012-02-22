@@ -1,7 +1,5 @@
 package commonFiles;
 
-//Test
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +15,8 @@ public class Patient implements Serializable {
 		this.name = name;
 		this.patientID = patientID;
 		this.vitalList = new HashMap();
+		
+		// Default values are based on patient age 13+
 		vitalList.put("Blood Pressure", new Vital("bPressure", 119, 111, 121, 109));
 		vitalList.put("Body Temperature", new Vital("bTemperature", 101, 94, 104, 90));
 		vitalList.put("Heart Rate", new Vital("hRate", 104, 56, 106, 54));
@@ -30,11 +30,14 @@ public class Patient implements Serializable {
 		this.vitalList = vitals;
 	}
 	
+	/**
+	 * Given a Hash Map of vitals, updates current values and prints them out.
+	 * 
+	 * @param vitalData
+	 */
 	public void updateCurrentVitals(HashMap <String, Integer> vitalData){
 		for (Object i : vitalData.keySet().toArray()){
-			//System.out.println(i + " " + vitalList.get(i));
 			vitalList.get(i).setCurrent(vitalData.get(i));
-			//put(i, vitalData.get(i));
 			System.out.println("Patient " + name + " " + i + " = " + vitalData.get(i));
 		}
 	}
