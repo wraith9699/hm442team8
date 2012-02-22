@@ -217,8 +217,12 @@ public class bedsideMonitorMainGUI extends JFrame{
 		alarmTimer.start();
 	}
 	
+	public void calling(){
+		callTimer.start();
+	}
 	public void reset(){
 		alarmTimer.stop();
+		callTimer.stop();
 		frame.getContentPane().setBackground(null);
 	}
 	public void setSensors( Boolean[] sensors ){
@@ -332,36 +336,8 @@ public class bedsideMonitorMainGUI extends JFrame{
         }
     }
 	class Update implements ActionListener{
-		 boolean on=false;
         public void actionPerformed(ActionEvent e) {
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
-        	
-        	System.out.println(bedside.getCurrentStatus().equals("ALARMED"));
-        	if( bedside.getCurrentStatus().equals("ALARMED")){
-        		alarm();
-        		//frame.getContentPane().setBackground( on ? Color.RED : null);
-        		System.out.println("booyah");
-        	}
-        	else if(  bedside.getCurrentStatus().equals("IDLE")){
-        		reset();
-        		System.out.println("booyah");
-        		
-        	}
-            on = !on;
-        	
-        	repaint();
+             updateDisplay();   	
         }
     }
 	
@@ -405,4 +381,42 @@ public class bedsideMonitorMainGUI extends JFrame{
         return dataset;
 		
 	}
+	
+	public void updateDisplay(){
+		System.out.println("Got here");
+		Patient p = bedside.getPatient();
+		// 0 = blood pressure
+		// 1 = body temp
+		// 2 = heart rate
+		// 3 = respitory rate
+		// 4 = weight
+		/*ArrayList<Vital> vitalList = (ArrayList<Vital>) p.getVitals().values();  ***PROBLEM HERE***
+		//heart rate field
+		textField_1.setText(Integer.toString(vitalList.get(2).getCurrentValue()));
+		//body temp field
+		textField_2.setText(Integer.toString(vitalList.get(1).getCurrentValue()));
+		//respitory rate field
+		textField_3.setText(Integer.toString(vitalList.get(3).getCurrentValue()));
+		//blood pressure field
+		textField_4.setText(Integer.toString(vitalList.get(0).getCurrentValue()));
+		//weight field
+		textField_5.setText(Integer.toString(vitalList.get(4).getCurrentValue()));
+		*/
+			//turn on alarm blinker
+			if( bedside.getCurrentStatus().equals("ALARMED")){
+	    		alarm();
+	    	}
+	    	else if( bedside.getCurrentStatus().equals("CALLING")){
+	    		calling();	    		
+	    	}
+	    	else if(  bedside.getCurrentStatus().equals("IDLE")){
+	    		reset();	    		
+	    	}
+			
+		repaint();
+			
+		}
+		
+		
+		
 }
