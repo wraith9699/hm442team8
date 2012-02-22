@@ -1,4 +1,4 @@
-
+package gui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -684,7 +684,6 @@ public class calibrationDialog extends JDialog {
 				ranges.put("clw", Integer.parseInt(textField_14.getText()));
 				
 				monitor.setSensorRanges(ranges);
-				dispose();
 			}
 		});
 		btnNewButton.setBounds(1136, 432, 130, 61);
