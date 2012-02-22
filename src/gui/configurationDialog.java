@@ -1,8 +1,6 @@
 package gui;
 
 
-import gui.calibrationDialog;
-
 import javax.swing.*;
 
 import commonFiles.Patient;
@@ -268,7 +266,7 @@ public class configurationDialog extends JDialog {
 		JButton btnCalibrate = new JButton("CALIBRATE");
 		btnCalibrate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				calibrationDialog calD = new calibrationDialog();
+				calibrationDialog calD = new calibrationDialog(p);
 				calD.setAlwaysOnTop(true);
 				calD.setVisible(true);
 			}
