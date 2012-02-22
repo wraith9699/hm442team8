@@ -21,7 +21,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class bedsideMonitorMainGUI extends JFrame{
 
 	
-	private JPanel contentPane, vitalPanel;
+	private JPanel contentPane;
 	private JTextField textField;
 	private JButton btnCallButton = new JButton("Call Button");
 	private Timer callTimer = new Timer(500, new Blinker());
@@ -33,6 +33,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	protected Patient p = null;
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
 	/**
@@ -58,9 +59,11 @@ public class bedsideMonitorMainGUI extends JFrame{
 	public bedsideMonitorMainGUI( final Patient p ){
 		//this.bedside = bedside;
 		//bedside = null;
+		Font f = new Font("Dialog", Font.PLAIN, 18);
+		this.p = p;
 		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 641);
+		setBounds(100, 100, 520, 642);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -137,42 +140,66 @@ public class bedsideMonitorMainGUI extends JFrame{
 		textField.setText(p.getName());
 		JLabel lblPatient = new JLabel("Patient:");
 		lblPatient.setBounds(10, 15, 46, 14);
-		contentPane.add(lblPatient);		
-		//refresher.start();
-		vitalPanel = new JPanel();
-		vitalPanel.setBackground(Color.white);
-		vitalPanel.setBounds(10,237,495,365);
-		contentPane.add(vitalPanel);
+		contentPane.add(lblPatient);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(10, 190, 34, 4);
+		contentPane.add(label);
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setBounds(20, 148, 86, 78);
+		textField_1.setBounds(10, 173, 91, 57);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
+		
+		JLabel lblHeartRate = new JLabel("Heart Rate:");
+		lblHeartRate.setBounds(10, 145, 104, 20);
+		lblHeartRate.setFont(f);
+		contentPane.add(lblHeartRate);
 		
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(116, 148, 86, 78);
+		textField_2.setBounds(10, 263, 91, 57);
 		contentPane.add(textField_2);
+		
+		JLabel lblBodyTemp = new JLabel("Body Temp");
+		lblBodyTemp.setBounds(10, 235, 110, 24);
+		lblBodyTemp.setFont(f);
+		contentPane.add(lblBodyTemp);
 		
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
-		textField_3.setBounds(212, 148, 86, 78);
+		textField_3.setBounds(10, 358, 91, 57);
 		contentPane.add(textField_3);
+		
+		JLabel lblB = new JLabel("Resp. Rate");
+		lblB.setBounds(11, 330, 110, 24);
+		contentPane.add(lblB);
+		lblB.setFont(f);
 		
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
-		textField_4.setBounds(308, 148, 86, 78);
+		textField_4.setBounds(10, 448, 91, 57);
 		contentPane.add(textField_4);
+		
+		JLabel lblBloodPress = new JLabel("Blood Press.");
+		lblBloodPress.setBounds(10, 426, 110, 18);
+		lblBloodPress.setFont(f);
+		contentPane.add(lblBloodPress);
 		
 		textField_5 = new JTextField();
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
-		textField_5.setBounds(404, 148, 86, 78);
+		textField_5.setBounds(10, 539, 91, 57);
 		contentPane.add(textField_5);
+		
+		JLabel lblWeight = new JLabel("Weight");
+		lblWeight.setBounds(10, 514, 91, 24);
+		lblWeight.setFont(f);
+		contentPane.add(lblWeight);
 		chartPanel.setPreferredSize( new java.awt.Dimension(510,365));
 		//vitalPanel.add(chartPanel);
 		
@@ -190,17 +217,37 @@ public class bedsideMonitorMainGUI extends JFrame{
 		if( !sensors[0] ){
 			textField_1.setText("N/A");
 		}
+		else{
+			Vital x = (Vital) (p.getVitals().get("Heart Rate"));
+			textField_1.setText( "" + x.getCurrentValue() );
+		}
 		if( !sensors[1] ){
 			textField_2.setText("N/A");
+		}
+		else{
+			Vital x = (Vital) (p.getVitals().get("Body Temperature"));
+			textField_2.setText( "" + x.getCurrentValue() );
 		}
 		if( !sensors[2] ){
 			textField_3.setText("N/A");
 		}
+		else{
+			Vital x = (Vital) (p.getVitals().get("Respiratory Rate"));
+			textField_3.setText( "" + x.getCurrentValue() );
+		}
 		if( !sensors[3] ){
 			textField_4.setText("N/A");
 		}
+		else{
+			Vital x = (Vital) (p.getVitals().get("Heart Rate"));
+			textField_4.setText( "" + x.getCurrentValue() );
+		}
 		if( !sensors[4] ){
 			textField_5.setText("N/A");
+		}
+		else{
+			Vital x = (Vital) (p.getVitals().get("Weight"));
+			textField_5.setText( "" + x.getCurrentValue() );
 		}
 		repaint();
 	}
