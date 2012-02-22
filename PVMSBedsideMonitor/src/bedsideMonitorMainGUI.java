@@ -342,6 +342,9 @@ public class bedsideMonitorMainGUI extends JFrame{
         	else if(  bedside.getCurrentStatus().equals(Status.IDLE)){
         		reset();
         	}
+        	
+        	Vital x = (Vital) (p.getVitals().get("Heart Rate"));
+			textField_1.setText( "" + x.getCurrentValue() );
         	repaint();
         }
     }
