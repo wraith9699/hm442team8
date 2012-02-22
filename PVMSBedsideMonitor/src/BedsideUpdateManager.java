@@ -13,7 +13,7 @@ public class BedsideUpdateManager {
 	
 	public BedsideUpdateManager(BedsideSystemImpl bedsideSystem){
 		sensorTimer = new Timer();
-		sensorTimer.scheduleAtFixedRate(new SensorPoll(bedsideSystem), new Date(), 500);
+		sensorTimer.scheduleAtFixedRate(new SensorPoll(bedsideSystem), new Date(), 2000);
 	}
 	
 	

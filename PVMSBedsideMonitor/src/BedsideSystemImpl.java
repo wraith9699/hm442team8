@@ -46,7 +46,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	private String bedID;
 	
 	private Status currentStatus;
-	private enum Status { IDLE, CALLING, ALARMED};
+	public enum Status { IDLE, CALLING, ALARMED};
 	
 	private VitalParser sensorArray;
 	private BedsideUpdateManager bsManager;
