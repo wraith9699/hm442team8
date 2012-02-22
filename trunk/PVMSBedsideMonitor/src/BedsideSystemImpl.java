@@ -52,46 +52,187 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	private BedsideUpdateManager bsManager;
 	
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		
 		ArrayList beds = new ArrayList();
 		
 		for (int i = 0; i < Integer.parseInt(args[0]); i++){
 			beds.add(new BedsideSystemImpl("Dante" + i, "bd" + i));
-			//((BedsideSystemImpl) beds.get(i)).registerBedside();
-			//((BedsideSystemImpl) beds.get(i)).rmiTest();
 		}
 		
 		
 
 	}
 	
-	//Constructor
+	//Constructors
+	/**
+	 * Creates new bedside with patient
+	 * 
+	 * @param patientName
+	 * @param bedID
+	 * @throws IOException
+	 */
 	public BedsideSystemImpl (String patientName, String bedID) throws IOException{
+		
 		getNurseStation();
+		
 		this.bedID = bedID;
 		patient = new Patient(patientName, bedID);
+		
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
+		
 		sensorArray = new VitalParser();
 		bsManager = new BedsideUpdateManager(this);
-		this.rmiTest();
 	}
 	
+	/**
+	 * Creates new empty bedside
+	 * 
+	 * @param bedID
+	 * @throws IOException
+	 */
 	public BedsideSystemImpl (String bedID) throws IOException{
+		
 		getNurseStation();
+		
 		this.bedID = bedID;
+		
 		registerBedside();
 		nurseStation.updateBedsideLookup(bedID);
+		
 		sensorArray = new VitalParser();
 		bsManager = new BedsideUpdateManager(this);
-		this.rmiTest();
 	}
 	
+	/**
+	 * Bedside registers itself in the RMI registry
+	 * 
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 */
 	public void registerBedside() throws RemoteException, MalformedURLException{
-		//System.out.println(bedID + "\n" + this);
-		Naming.rebind(bedID, this);
+		Naming.rebind(this.bedID, this);
 	}
+	
+	
+
+	//Public
+	/**
+	 * Looks up remote nurse station using RMI registry
+	 * 
+	 * @throws RemoteException
+	 */
+	public void getNurseStation() throws RemoteException{
+		if (nurseStation == null){
+			try{
+				System.setSecurityManager( new RMISecurityManager());
+				Registry registry = LocateRegistry.getRegistry();
+				nurseStation = (NurseStation) registry.lookup(NURSE_STATION);
+			} catch (NotBoundException e){
+	            throw new ServerException("Could not access nurse station", e);
+	         } catch (IOException e){
+	            throw new ServerException("Could not load jndi.properties", e);
+	         }
+	         
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see commonFiles.BedsideSystem#acceptPatient(java.lang.String, java.lang.String)
+	 */
+	public boolean acceptPatient(String name, String id){
+		if (isEmpty()){
+			patient = new Patient(name, id);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Periodically called to update all patient's vitals and 
+	 * check for critical status.
+	 * 
+	 * @param vitalData
+	 * @throws RemoteException
+	 */
+	public void updateVitals(HashMap vitalData) throws RemoteException{
+		patient.updateCurrentVitals(vitalData);
+		for (Object i : patient.getVitals().keySet().toArray()){
+			Vital currentVital = (Vital) patient.getVitals().get(i);
+			if (currentVital.isCritical()){
+				System.out.println(bedID + " alarm triggered!");
+				activateAlarm();
+			}
+		}
+	}
+
+	/**
+	 * Notifies Nurse station of update.
+	 * Currently non-functional.  Deprecated?
+	 * 
+	 * @throws RemoteException
+	 */
+	public void updateNurseStation() throws RemoteException{
+		//nurseStation.updatePatientInfo(patient);
+	}
+
+	
+	/**
+	 * Sets bedside status to calling and triggers nurse station notification.
+	 * Currently triggers alarm instead of notification, will be modified in 
+	 * future releases.
+	 * 
+	 * @throws RemoteException
+	 */
+	public void callNurse() throws RemoteException{
+		setStatus(Status.CALLING);
+		nurseStation.alarmTrigger(bedID);
+	}
+	
+	/**
+	 * Sets bedside status to alarmed and trigger nurse station alarm
+	 * 
+	 * @throws RemoteException
+	 */
+	public void activateAlarm() throws RemoteException{
+		setStatus(Status.ALARMED);
+		nurseStation.alarmTrigger(bedID);
+	}
+	
+	/* (non-Javadoc)
+	 * @see commonFiles.BedsideSystem#resetAlarm()
+	 */
+	public void resetAlarm() throws RemoteException{
+		setStatus(Status.IDLE);
+	}
+	
+	/**
+	 * Resets bedside status.  Method is private because it can only 
+	 * be reset from the bedside.
+	 * 
+	 */
+	private void resetCall(){
+		setStatus(Status.IDLE);
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see commonFiles.BedsideSystem#dischargePatient()
+	 */
+	public void dischargePatient() throws RemoteException{
+		patient = null;
+		updateNurseStation();
+	}
+	
+	/* (non-Javadoc)
+	 * @see commonFiles.BedsideSystem#isEmpty()
+	 */
+	public boolean isEmpty(){
+		return patient == null;
+	}
+	
+	// Getters and Setters
 	
 	public VitalParser getSensorArray() {
 		return sensorArray;
@@ -112,87 +253,9 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	public Status getCurrentStatus() {
 		return currentStatus;
 	}
-
-	public void setCurrentStatus(Status currentStatus) {
-		this.currentStatus = currentStatus;
-	}
-
-	//Public
-	public void getNurseStation() throws RemoteException{
-		if (nurseStation == null){
-			try{
-				System.setSecurityManager( new RMISecurityManager());
-				Registry registry = LocateRegistry.getRegistry();
-				nurseStation = (NurseStation) registry.lookup(NURSE_STATION);
-			} catch (NotBoundException e){
-	            throw new ServerException("Could not access nurse station", e);
-	         } catch (IOException e){
-	            throw new ServerException("Could not load jndi.properties", e);
-	         }
-	         
-		}
-	}
-	
-	public boolean acceptPatient(String name, String id){
-		if (isEmpty()){
-			patient = new Patient(name, id);
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	public void updateVitals(HashMap vitalData) throws RemoteException{
-		//System.out.println(vitalData);
-		patient.updateCurrentVitals(vitalData);
-		for (Object i : patient.getVitals().keySet().toArray()){
-			Vital currentVital = (Vital) patient.getVitals().get(i);
-			if (currentVital.isCritical()){
-				System.out.println(bedID + " alarm triggered!");
-				activateAlarm();
-			}
-		}
-	}
-	
-	public void updateNurseStation() throws RemoteException{
-		//nurseStation.updatePatientInfo(patient);
-	}
-	
-	public void callNurse() throws RemoteException{
-		setStatus(Status.CALLING);
-		nurseStation.alarmTrigger(bedID);
-	}
-	
-	public void resetAlarm() throws RemoteException{
-		setStatus(Status.IDLE);
-		;
-	}
-	
-	private void resetCall(){
-		setStatus(Status.IDLE);
-	}
-	
-	public void activateAlarm() throws RemoteException{
-		setStatus(Status.ALARMED);
-		nurseStation.alarmTrigger(bedID);
-	}
 	
 	public void setStatus(Status newStatus){
 		currentStatus = newStatus;
 	}
-	
-	public void dischargePatient() throws RemoteException{
-		patient = null;
-		updateNurseStation();
-	}
-	
-	public boolean isEmpty(){
-		return patient == null;
-	}
-	
-	public void rmiTest() throws RemoteException{
-		nurseStation.acknowledgeVitalAlarm(patient);
-	}
-	
 	
 }
