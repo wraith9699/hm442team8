@@ -205,6 +205,7 @@ public class configurationDialog extends JDialog {
 		textField.setColumns(10);
 		Vital x = (Vital) (p.getVitals().get("Blood Pressure"));
 		textField.setText( "" + x.getCurrentValue() );
+		textField.setHorizontalAlignment(JTextField.CENTER);
 				
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
@@ -212,6 +213,7 @@ public class configurationDialog extends JDialog {
 		textField_1.setBounds(315, 187, 119, 61);
 		x = (Vital) (p.getVitals().get("Body Temperature"));
 		textField_1.setText( "" + x.getCurrentValue());
+		textField_1.setHorizontalAlignment(JTextField.CENTER);
 		getContentPane().add(textField_1);
 		
 		textField_2 = new JTextField();
@@ -220,6 +222,7 @@ public class configurationDialog extends JDialog {
 		textField_2.setBounds(315, 115, 119, 61);
 		x = (Vital) (p.getVitals().get("Heart Rate"));
 		textField_2.setText( "" + x.getCurrentValue());
+		textField_2.setHorizontalAlignment(JTextField.CENTER);
 		getContentPane().add(textField_2);
 		
 		textField_3 = new JTextField();
@@ -228,6 +231,7 @@ public class configurationDialog extends JDialog {
 		textField_3.setBounds(315, 257, 119, 61);
 		x = (Vital) (p.getVitals().get("Respiratory Rate"));
 		textField_3.setText( "" + x.getCurrentValue());
+		textField_3.setHorizontalAlignment(JTextField.CENTER);
 		getContentPane().add(textField_3);
 		
 		textField_4 = new JTextField();
@@ -236,6 +240,7 @@ public class configurationDialog extends JDialog {
 		textField_4.setBounds(315, 329, 119, 61);
 		x = (Vital) (p.getVitals().get("Weight"));
 		textField_4.setText( "" + x.getCurrentValue());
+		textField_4.setHorizontalAlignment(JTextField.CENTER);
 		getContentPane().add(textField_4);
 		
 		{
@@ -266,7 +271,7 @@ public class configurationDialog extends JDialog {
 		JButton btnCalibrate = new JButton("CALIBRATE");
 		btnCalibrate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				calibrationDialog calD = new calibrationDialog(p);
+				calibrationDialog calD = new calibrationDialog(p, monitor);
 				calD.setAlwaysOnTop(true);
 				calD.setVisible(true);
 			}

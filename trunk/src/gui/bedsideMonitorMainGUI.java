@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import commonFiles.Patient;
 import commonFiles.Vital;
@@ -34,6 +36,8 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JTextField textField_4;
 	private JTextField textField_5;
 	protected Patient p = null;
+	public HashMap <String, Integer> ranges;
+	
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
 	/**
@@ -219,40 +223,58 @@ public class bedsideMonitorMainGUI extends JFrame{
 		
 		if( !sensors[0] ){
 			textField_1.setText("N/A");
+			textField_1.setHorizontalAlignment(JTextField.CENTER);
 		}
 		else{
 			Vital x = (Vital) (p.getVitals().get("Heart Rate"));
 			textField_1.setText( "" + x.getCurrentValue() );
+			textField_1.setHorizontalAlignment(JTextField.CENTER);
 		}
 		if( !sensors[1] ){
 			textField_2.setText("N/A");
+			textField_2.setHorizontalAlignment(JTextField.CENTER);
 		}
 		else{
 			Vital x = (Vital) (p.getVitals().get("Body Temperature"));
 			textField_2.setText( "" + x.getCurrentValue() );
+			textField_2.setHorizontalAlignment(JTextField.CENTER);
 		}
 		if( !sensors[2] ){
 			textField_3.setText("N/A");
+			textField_3.setHorizontalAlignment(JTextField.CENTER);
 		}
 		else{
 			Vital x = (Vital) (p.getVitals().get("Respiratory Rate"));
 			textField_3.setText( "" + x.getCurrentValue() );
+			textField_3.setHorizontalAlignment(JTextField.CENTER);
 		}
 		if( !sensors[3] ){
 			textField_4.setText("N/A");
+			textField_4.setHorizontalAlignment(JTextField.CENTER);
 		}
 		else{
 			Vital x = (Vital) (p.getVitals().get("Heart Rate"));
 			textField_4.setText( "" + x.getCurrentValue() );
+			textField_4.setHorizontalAlignment(JTextField.CENTER);
 		}
 		if( !sensors[4] ){
 			textField_5.setText("N/A");
+			textField_5.setHorizontalAlignment(JTextField.CENTER);
 		}
 		else{
 			Vital x = (Vital) (p.getVitals().get("Weight"));
 			textField_5.setText( "" + x.getCurrentValue() );
+			textField_5.setHorizontalAlignment(JTextField.CENTER);
 		}
 		repaint();
+	}
+	
+	public void setSensorRanges( HashMap <String, Integer> ranges  ){
+		this.ranges = ranges;
+		/*Iterator<Integer> it = ranges.values().iterator();
+		while( it.hasNext()){
+			System.out.println(it.next());
+		}*/
 	}
 	private JFreeChart createChart(XYDataset dataset) {
 		 final JFreeChart chart = ChartFactory.createXYLineChart(

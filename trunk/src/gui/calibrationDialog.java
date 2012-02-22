@@ -9,6 +9,7 @@ import commonFiles.Vital;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class calibrationDialog extends JDialog {
 
@@ -34,6 +35,8 @@ public class calibrationDialog extends JDialog {
 	private JTextField textField_18;
 	private JTextField textField_19;
 	private Patient p;
+	private bedsideMonitorMainGUI monitor;
+	private HashMap <String, Integer> ranges = new HashMap<String,Integer>();
 
 	/**
 	 * Launch the application.
@@ -51,8 +54,9 @@ public class calibrationDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public calibrationDialog( Patient p) {
+	public calibrationDialog( final Patient p, final bedsideMonitorMainGUI monitor) {
 		this.p = p;
+		this.monitor = monitor;
 		setBounds(100, 100, 1282, 531);
 		getContentPane().setLayout(null);
 		setResizable(false);
@@ -66,9 +70,9 @@ public class calibrationDialog extends JDialog {
 		lblNewLabel.setFont(f);
 		getContentPane().add(lblNewLabel);
 		
-		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
+		
 		textField_5 = new JTextField();
-		textField_5.setText("" +  x.getHighHigh());
+		
 		textField_5.setHorizontalAlignment(JTextField.CENTER);
 		textField_5.setColumns(10);
 		textField_5.setBounds(256, 55, 103, 61);
@@ -82,7 +86,7 @@ public class calibrationDialog extends JDialog {
 		getContentPane().add(textField_19);
 		
 		textField_10 = new JTextField();
-		textField_10.setText("" +  x.getHigh());
+		
 		textField_10.setHorizontalAlignment(JTextField.CENTER);
 		textField_10.setColumns(10);
 		textField_10.setBounds(536, 55, 103, 61);
@@ -95,10 +99,13 @@ public class calibrationDialog extends JDialog {
 		textField_4.setBounds(1089, 55, 103, 61);
 		getContentPane().add(textField_4);
 		
+		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
+		textField_5.setText("" +  x.getHighHigh());
+		textField_10.setText("" +  x.getHigh());
 		textField_4.setText("" +  x.getLowLow());
 		textField_19.setText("" +  x.getLow());
 		
-		x = (Vital) (p.getVitals().get("Body Temperature"));
+		
 		textField_6 = new JTextField();
 		textField_6.setText("1");
 		textField_6.setHorizontalAlignment(JTextField.CENTER);
@@ -127,6 +134,7 @@ public class calibrationDialog extends JDialog {
 		textField_18.setBounds(809, 123, 103, 61);
 		getContentPane().add(textField_18);
 		
+		x = (Vital) (p.getVitals().get("Body Temperature"));
 		textField_3.setText("" +  x.getLowLow());
 		textField_18.setText("" +  x.getLow());
 		textField_6.setText("" +  x.getHighHigh());
@@ -199,6 +207,7 @@ public class calibrationDialog extends JDialog {
 		textField_16.setText("" +  x.getLow());
 		textField_8.setText("" +  x.getHighHigh());
 		textField_13.setText("" +  x.getHigh());
+		
 		
 		textField_9 = new JTextField();
 		textField_9.setText("4");
@@ -649,10 +658,35 @@ public class calibrationDialog extends JDialog {
 		JButton btnNewButton = new JButton("SET");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				ranges.put("ahhr", Integer.parseInt(textField_5.getText()));
+				ranges.put("chhr", Integer.parseInt(textField_10.getText()));
+				ranges.put("alhr", Integer.parseInt(textField_4.getText()));
+				ranges.put("clhr", Integer.parseInt(textField_19.getText()));
+				
+				ranges.put("ahbt", Integer.parseInt(textField_3.getText()));
+				ranges.put("chbt", Integer.parseInt(textField_18.getText()));
+				ranges.put("albt", Integer.parseInt(textField_6.getText()));
+				ranges.put("clbt", Integer.parseInt(textField_11.getText()));
+								
+				ranges.put("ahrr", Integer.parseInt(textField_2.getText()));
+				ranges.put("chrr", Integer.parseInt(textField_17.getText()));
+				ranges.put("alrr", Integer.parseInt(textField_7.getText()));
+				ranges.put("clrr", Integer.parseInt(textField_12.getText()));
+				
+				ranges.put("ahbp", Integer.parseInt(textField_1.getText()));
+				ranges.put("chbp", Integer.parseInt(textField_16.getText()));
+				ranges.put("albp", Integer.parseInt(textField_8.getText()));
+				ranges.put("clbp", Integer.parseInt(textField_13.getText()));
+				
+				ranges.put("ahw", Integer.parseInt(textField.getText()));
+				ranges.put("chw", Integer.parseInt(textField_15.getText()));
+				ranges.put("alw", Integer.parseInt(textField_9.getText()));
+				ranges.put("clw", Integer.parseInt(textField_14.getText()));
+				
+				monitor.setSensorRanges(ranges);
 			}
 		});
-		btnNewButton.setBounds(964, 432, 130, 61);
+		btnNewButton.setBounds(1136, 432, 130, 61);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnCancel = new JButton("CANCEL");
@@ -667,7 +701,31 @@ public class calibrationDialog extends JDialog {
 		JButton btnReset = new JButton("RESET");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
+				textField_5.setText("" +  x.getHighHigh());
+				textField_10.setText("" +  x.getHigh());
+				textField_4.setText("" +  x.getLowLow());
+				textField_19.setText("" +  x.getLow());
+				x = (Vital) (p.getVitals().get("Body Temperature"));
+				textField_3.setText("" +  x.getLowLow());
+				textField_18.setText("" +  x.getLow());
+				textField_6.setText("" +  x.getHighHigh());
+				textField_11.setText("" +  x.getHigh());
+				x = (Vital) (p.getVitals().get("Respiratory Rate"));
+				textField_2.setText("" +  x.getLowLow());
+				textField_17.setText("" +  x.getLow());
+				textField_7.setText("" +  x.getHighHigh());
+				textField_12.setText("" +  x.getHigh());
+				x = (Vital) (p.getVitals().get("Blood Pressure"));
+				textField_1.setText("" +  x.getLowLow());
+				textField_16.setText("" +  x.getLow());
+				textField_8.setText("" +  x.getHighHigh());
+				textField_13.setText("" +  x.getHigh());
+				x = (Vital) (p.getVitals().get("Weight"));
+				textField.setText("" +  x.getLowLow());
+				textField_15.setText("" +  x.getLow());
+				textField_9.setText("" +  x.getHighHigh());
+				textField_14.setText("" +  x.getHigh());
 			}
 		});
 		btnReset.setBounds(150, 432, 130, 61);
