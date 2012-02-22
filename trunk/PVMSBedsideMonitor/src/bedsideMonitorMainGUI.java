@@ -350,12 +350,14 @@ public class bedsideMonitorMainGUI extends JFrame{
         	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
         	
         	System.out.println(bedside.getCurrentStatus().equals(Status.ALARMED));
-        	if( bedside.getCurrentStatus().equals(Status.ALARMED)){
-        		//alarm();
-        		frame.getContentPane().setBackground( on ? Color.RED : null);
+        	if( bedside.getCurrentStatus().equals("ALARMED")){
+        		alarm();
+        		//frame.getContentPane().setBackground( on ? Color.RED : null);
+        		System.out.println("booyah");
         	}
-        	else if(  bedside.getCurrentStatus().equals(Status.IDLE)){
+        	else if(  bedside.getCurrentStatus().equals("IDLE")){
         		reset();
+        		System.out.println("booyah");
         		
         	}
             on = !on;
