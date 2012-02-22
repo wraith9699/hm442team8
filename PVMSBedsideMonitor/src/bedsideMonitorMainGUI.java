@@ -210,6 +210,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 		//chartPanel.setPreferredSize( new java.awt.Dimension(510,365));
 		contentPane.add(chartPanel);
 		//vitalPanel.add(chartPanel);
+		dataUpdate.start();
 		
 	}
 	
