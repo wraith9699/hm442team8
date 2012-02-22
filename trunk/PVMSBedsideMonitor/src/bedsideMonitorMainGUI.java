@@ -336,11 +336,12 @@ public class bedsideMonitorMainGUI extends JFrame{
 		 boolean on=false;
         public void actionPerformed(ActionEvent e) {
         	if( bedside.getCurrentStatus().equals(Status.ALARMED) ){
-        		alarm();
+        		frame.getContentPane().setBackground( on ? Color.RED : null);
         		//frame.getContentPane().setBackground( on ? Color.RED : null);
         	}
         	else if(  bedside.getCurrentStatus().equals(Status.IDLE)){
-        		reset();
+        		//reset();
+        		frame.getContentPane().setBackground(null);
         	}
         	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
         	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
