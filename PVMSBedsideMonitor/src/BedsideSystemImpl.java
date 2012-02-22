@@ -45,8 +45,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	private Patient patient = null;
 	private String bedID;
 	
-	private Status currentStatus;
-	public enum Status { IDLE, CALLING, ALARMED};
+	public String currentStatus = "IDLE";
 	
 	private VitalParser sensorArray;
 	private BedsideUpdateManager bsManager;
@@ -188,7 +187,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	 * @throws RemoteException
 	 */
 	public void callNurse() throws RemoteException{
-		setStatus(Status.CALLING);
+		setStatus("CALLING");
 		nurseStation.alarmTrigger(bedID);
 	}
 	
@@ -198,7 +197,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	 * @throws RemoteException
 	 */
 	public void activateAlarm() throws RemoteException{
-		setStatus(Status.ALARMED);
+		setStatus("ALARMED");
 		nurseStation.alarmTrigger(bedID);
 	}
 	
@@ -206,7 +205,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	 * @see commonFiles.BedsideSystem#resetAlarm()
 	 */
 	public void resetAlarm() throws RemoteException{
-		setStatus(Status.IDLE);
+		setStatus("IDLE");
 	}
 	
 	/**
@@ -215,7 +214,7 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	 * 
 	 */
 	private void resetCall(){
-		setStatus(Status.IDLE);
+		setStatus("IDLE");
 	}
 
 	
@@ -252,11 +251,11 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 		this.bedID = bedID;
 	}
 
-	public Status getCurrentStatus() {
+	public String getCurrentStatus() {
 		return currentStatus;
 	}
 	
-	public void setStatus(Status newStatus){
+	public void setStatus(String newStatus){
 		currentStatus = newStatus;
 	}
 	
