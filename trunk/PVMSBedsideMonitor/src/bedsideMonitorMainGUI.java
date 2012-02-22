@@ -358,7 +358,8 @@ public class bedsideMonitorMainGUI extends JFrame{
         	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
         	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
         	System.out.println(bedside.getCurrentStatus());
-        	if( bedside.getCurrentStatus().equals(Status.ALARMED) == true){
+        	System.out.println( bedside.getCurrentStatus().equals(Status.ALARMED));
+        	if( bedside.getCurrentStatus().equals(Status.ALARMED) != true){
         		System.out.println("FUCKYOFUCKYOUFUCKYOUFUCKYOUFUCKYOUFUCKYOUFUCKYOUU");
         		System.out.println("FUCKYOFUCKYOUFUCKYOUFUCKYOUFUCKYOUFUCKYOUFUCKYOUU");
         		System.out.println("FUCKYOFUCKYOUFUCKYOUFUCKYOUFUCKYOUFUCKYOUFUCKYOUU");
