@@ -335,6 +335,7 @@ public class bedsideMonitorMainGUI extends JFrame{
         }
     }
 	class Update implements ActionListener{
+		 boolean on=false;
         public void actionPerformed(ActionEvent e) {
         	if( bedside.getCurrentStatus().equals(Status.ALARMED) ){
         		alarm();
@@ -343,8 +344,10 @@ public class bedsideMonitorMainGUI extends JFrame{
         		reset();
         	}
         	
-        	Vital x = (Vital) (p.getVitals().get("Heart Rate"));
-			textField_1.setText( "" + x.getCurrentValue() );
+        	btnCallButton.setBackground( on ? Color.BLUE : null);
+        	btnCallButton.setForeground( on ? Color.WHITE : Color.BLACK);
+            on = !on;
+        	
         	repaint();
         }
     }
