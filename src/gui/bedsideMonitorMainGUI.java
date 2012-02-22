@@ -200,7 +200,10 @@ public class bedsideMonitorMainGUI extends JFrame{
 		lblWeight.setBounds(10, 514, 91, 24);
 		lblWeight.setFont(f);
 		contentPane.add(lblWeight);
-		chartPanel.setPreferredSize( new java.awt.Dimension(510,365));
+		
+		chartPanel.setBounds(124, 145, 381, 451);
+		//chartPanel.setPreferredSize( new java.awt.Dimension(510,365));
+		contentPane.add(chartPanel);
 		//vitalPanel.add(chartPanel);
 		
 				
