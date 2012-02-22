@@ -53,10 +53,12 @@ public class BedsideSystemImpl extends UnicastRemoteObject implements BedsideSys
 	
 	public static void main(String[] args) throws IOException {
 		
-		ArrayList beds = new ArrayList();
+		ArrayList <BedsideSystem> beds = new ArrayList();
 		
 		for (int i = 0; i < Integer.parseInt(args[0]); i++){
 			beds.add(new BedsideSystemImpl("Dante" + i, "bd" + i));
+			bedsideMonitorMainGUI GUI = new bedsideMonitorMainGUI((BedsideSystemImpl) beds.get(i)); 
+			GUI.setVisible(true);
 		}
 		
 		
