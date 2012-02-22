@@ -19,6 +19,15 @@ public class Vital implements Serializable {
 		this.name = name;
 	}
 	
+	/**
+	 * Create patient with specified limits
+	 * 
+	 * @param name
+	 * @param high
+	 * @param low
+	 * @param highHigh
+	 * @param lowLow
+	 */
 	public Vital( String name, int high, int low, int highHigh, int lowLow){
 		this.name = name;
 		this.highValue = high; this.lowValue = low; this.highHigh = highHigh; this.lowLow = lowLow;
