@@ -1,9 +1,12 @@
 
 
+
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -19,7 +22,7 @@ import javax.swing.JScrollBar;
 
 public class logGUI extends JFrame {
 
-	private JPanel contentPane;
+	private static JPanel contentPane;
 	static JTextArea textArea = new JTextArea();
 
 	/**
@@ -52,7 +55,7 @@ public class logGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		parse();
+		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -75,18 +78,33 @@ public class logGUI extends JFrame {
 		
 		JButton btnPrint = new JButton("PRINT");
 		btnPrint.setBounds(10, 270, 135, 61);
+		btnPrint.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(contentPane, "Current log sent to the printer");
+			}
+		});
 		contentPane.add(btnPrint);
+		parse();
 	}
 	
 	public static void parse() throws IOException{
-		String filePath = "C:\\Users\\tmc7617\\Desktop\\Log.txt";
-		BufferedReader reader = new BufferedReader(new FileReader(filePath));
-		String strLine; 
-		while((strLine = reader.readLine())!= null ){
+		try{
+			/*
+			String filePath = "C:\\Users\\tmc7617\\Desktop\\Log.txt";
+			BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		
+			
+			String strLine; 
+				while((strLine = reader.readLine())!= null ){
 			if( strLine.contains("Patient1") ){
 				textArea.append(strLine + "\n");
 			}
+				}
+		reader.close();*/
 		}
-		reader.close();
+		catch(Exception e ){
+			System.err.println("Cannot locate log");
+			JOptionPane.showMessageDialog(contentPane, "Cannot locate log");
+		}
 	}
 }
