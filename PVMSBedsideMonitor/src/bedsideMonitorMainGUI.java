@@ -37,7 +37,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JTextField textField_5;
 	protected Patient p = null;
 	public HashMap <String, Integer> ranges;
-	public BedsideSystemImpl bedside = null;
+	public BedsideSystemImpl bedside;
 	
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
@@ -335,6 +335,29 @@ public class bedsideMonitorMainGUI extends JFrame{
 	class Update implements ActionListener{
 		 boolean on=false;
         public void actionPerformed(ActionEvent e) {
+        	
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
+        	System.out.println(bedside.getCurrentStatus());
         	if( bedside.getCurrentStatus().equals(Status.ALARMED) ){
         		frame.getContentPane().setBackground( on ? Color.RED : null);
         		//frame.getContentPane().setBackground( on ? Color.RED : null);
