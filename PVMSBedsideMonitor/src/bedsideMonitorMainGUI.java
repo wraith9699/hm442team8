@@ -336,6 +336,7 @@ public class bedsideMonitorMainGUI extends JFrame{
         public void actionPerformed(ActionEvent e) {
         	if( bedside.getCurrentStatus().equals(Status.ALARMED) ){
         		alarm();
+        		//frame.getContentPane().setBackground( on ? Color.RED : null);
         	}
         	else if(  bedside.getCurrentStatus().equals(Status.IDLE)){
         		reset();
@@ -364,7 +365,7 @@ public class bedsideMonitorMainGUI extends JFrame{
         	
         	//btnCallButton.setBackground( on ? Color.BLUE : null);
         	//btnCallButton.setForeground( on ? Color.WHITE : Color.BLACK);
-        	getContentPane().setBackground( on ? Color.RED : null);
+        	frame.getContentPane().setBackground( on ? Color.RED : null);
             on = !on;
         	
         	repaint();
