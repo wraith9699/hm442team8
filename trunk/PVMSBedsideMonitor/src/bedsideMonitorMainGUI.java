@@ -1,5 +1,3 @@
-package gui;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -37,6 +35,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JTextField textField_5;
 	protected Patient p = null;
 	public HashMap <String, Integer> ranges;
+	public BedsideSystemImpl bedside = null;
 	
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
@@ -60,11 +59,10 @@ public class bedsideMonitorMainGUI extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public bedsideMonitorMainGUI( final Patient p ){
-		//this.bedside = bedside;
-		//bedside = null;
+	public bedsideMonitorMainGUI( final Patient p, BedsideSystemImpl bedside ){
+		this.bedside = bedside;
 		Font f = new Font("Dialog", Font.PLAIN, 18);
-		this.p = p;
+		this.p = bedside.getPatient();
 		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 520, 642);
