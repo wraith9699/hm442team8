@@ -27,7 +27,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	private JButton btnCallButton = new JButton("Call Button");
 	private Timer callTimer = new Timer(500, new Blinker());
 	private Timer alarmTimer = new Timer(400, new Alarmer());
-	private Timer dataUpdate = new Timer(2000, new Update());
+	private Timer dataUpdate = new Timer(1000, new Update());
 	private bedsideMonitorMainGUI frame = null;
 	public Boolean sensors[] = { true, true, true, true, true };
 	private JTextField textField_1;
@@ -220,6 +220,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	
 	public void reset(){
 		alarmTimer.stop();
+		frame.getContentPane().setBackground(null);
 	}
 	public void setSensors( Boolean[] sensors ){
 		this.sensors = sensors;
@@ -327,7 +328,7 @@ public class bedsideMonitorMainGUI extends JFrame{
         boolean on=false;
  
         public void actionPerformed(ActionEvent e) {       
-        	getContentPane().setBackground( on ? Color.RED : null);
+        	frame.getContentPane().setBackground( on ? Color.RED : null);
             on = !on;
         }
     }
@@ -365,7 +366,7 @@ public class bedsideMonitorMainGUI extends JFrame{
         	
         	//btnCallButton.setBackground( on ? Color.BLUE : null);
         	//btnCallButton.setForeground( on ? Color.WHITE : Color.BLACK);
-        	frame.getContentPane().setBackground( on ? Color.RED : null);
+        	//frame.getContentPane().setBackground( on ? Color.RED : null);
             on = !on;
         	
         	repaint();
