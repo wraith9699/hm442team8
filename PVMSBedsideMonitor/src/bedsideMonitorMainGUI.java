@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import commonFiles.BedsideSystem.Status;
 import commonFiles.Patient;
 import commonFiles.Vital;
 import org.jfree.chart.*;
@@ -349,7 +348,7 @@ public class bedsideMonitorMainGUI extends JFrame{
         	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
         	System.out.println("HEREHERHEHEHHEEHHEHEHEHEHEHEHEHEHEHEHEHEHEHEHHEHEHEHEHEHEHEHEHEEHEHHEHEHE");
         	
-        	System.out.println(bedside.getCurrentStatus().equals(Status.ALARMED));
+        	System.out.println(bedside.getCurrentStatus().equals("ALARMED"));
         	if( bedside.getCurrentStatus().equals("ALARMED")){
         		alarm();
         		//frame.getContentPane().setBackground( on ? Color.RED : null);
