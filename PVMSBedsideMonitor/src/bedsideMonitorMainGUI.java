@@ -340,7 +340,8 @@ public class bedsideMonitorMainGUI extends JFrame{
         	}
         	else if(  bedside.getCurrentStatus().equals(Status.IDLE)){
         		reset();
-        	}        
+        	}
+        	repaint();
         }
     }
 	
