@@ -59,7 +59,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public bedsideMonitorMainGUI( final Patient p, BedsideSystemImpl bedside ){
+	public bedsideMonitorMainGUI( BedsideSystemImpl bedside ){
 		this.bedside = bedside;
 		Font f = new Font("Dialog", Font.PLAIN, 18);
 		this.p = bedside.getPatient();
