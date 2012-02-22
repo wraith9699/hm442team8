@@ -50,8 +50,8 @@ public class Patient implements Serializable {
 	public void updateVital( Vital updatedVital ){
 	}
 	
-	public Vital getVital( Vital desiredVital ){
-		return (Vital) vitalList.get(desiredVital.getName());
+	public Vital getVital( String name ){
+		return (Vital) vitalList.get(name);
 	}
 	
 	public void setVitalList(HashMap vitals){
