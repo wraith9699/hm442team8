@@ -326,10 +326,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	class Alarmer implements ActionListener{
         boolean on=false;
  
-        public void actionPerformed(ActionEvent e) {
-            // blink the label background on and off
-        	//btnCallButton.setBackground(null);
-			//btnCallButton.setForeground(Color.BLACK);
+        public void actionPerformed(ActionEvent e) {       
         	getContentPane().setBackground( on ? Color.RED : null);
             on = !on;
         }
@@ -365,8 +362,9 @@ public class bedsideMonitorMainGUI extends JFrame{
         	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
         	System.out.println("HEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHEREHERE");
         	
-        	btnCallButton.setBackground( on ? Color.BLUE : null);
-        	btnCallButton.setForeground( on ? Color.WHITE : Color.BLACK);
+        	//btnCallButton.setBackground( on ? Color.BLUE : null);
+        	//btnCallButton.setForeground( on ? Color.WHITE : Color.BLACK);
+        	getContentPane().setBackground( on ? Color.RED : null);
             on = !on;
         	
         	repaint();
