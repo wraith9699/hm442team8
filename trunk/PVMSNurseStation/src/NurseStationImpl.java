@@ -37,11 +37,11 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 			try{
 				if(!getBedList().isEmpty())
 					gatherBedsideUpdates();
+				System.out.println("Updated Patient Information.");
 			} 
 			catch (RemoteException e) {
 				e.printStackTrace();
 			}
-			System.out.println("Updated Patient Information.");
 		}	
 	}
 	private updateTask task = new updateTask();
@@ -110,6 +110,12 @@ public class NurseStationImpl extends UnicastRemoteObject implements NurseStatio
 			Patient temp = bedList.get(i).getPatient();
 			if(temp != null)
 				patientMap.put(temp.getID(), temp);
+			System.out.println("Updated Patient: " + temp.getName());
+			if (bedList.get(i).getCurrentStatus() == "ALARMED"){
+				System.out.println("Patient " + temp.getName() + " is critical!");
+			}else{
+				System.out.println("Patient " + temp.getName() + " is normal.");
+			}
 		}
 		return patientMap;
 	}

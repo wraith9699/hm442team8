@@ -17,7 +17,7 @@ public class Patient implements Serializable {
 		this.name = name;
 		this.patientID = patientID;
 		this.vitalList = new HashMap();
-		vitalList.put("Blood Pressure", new Vital("bPressure", 119, 113, 121, 109));
+		vitalList.put("Blood Pressure", new Vital("bPressure", 119, 113, 121, 106));
 		vitalList.put("Body Temperature", new Vital("bTemperature", 101, 94, 104, 90));
 		vitalList.put("Heart Rate", new Vital("hRate", 104, 56, 106, 54));
 		vitalList.put("Respiratory Rate", new Vital("rRate", 29, 21, 31, 19));
