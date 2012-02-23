@@ -10,6 +10,14 @@ import java.util.Iterator;
 
 import commonFiles.Patient;
 import commonFiles.Vital;
+import org.jfree.chart.*;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class bedsideMonitorMainGUI extends JFrame{
 
@@ -30,6 +38,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	protected Patient p = null;
 	public HashMap <String, Integer> ranges;
 	public BedsideSystemImpl bedside;
+	final XYSeriesCollection dataset = new XYSeriesCollection();
 	
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
@@ -191,8 +200,12 @@ public class bedsideMonitorMainGUI extends JFrame{
 		lblWeight.setBounds(10, 514, 91, 24);
 		lblWeight.setFont(f);
 		contentPane.add(lblWeight);
-		
-		
+			
+		final XYDataset dataset = createDataSet();
+	    final JFreeChart chart = createChart(dataset);
+	    final ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setBounds(124, 145, 381, 451);
+		contentPane.add(chartPanel);
 		dataUpdate.start();
 		
 	}
@@ -295,11 +308,14 @@ public class bedsideMonitorMainGUI extends JFrame{
     }
 		
 	public void updateDisplay(){
-		System.out.println("Got here");
+		//System.out.println("Got here");
 		Patient p = bedside.getPatient();
+		XYSeries line = new XYSeries("Hold");
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
+		line = dataset.getSeries(0);
+		line.add((double)-3, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Body Temperature"));
 		textField_2.setText("" + x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Respiratory Rate"));
@@ -320,5 +336,62 @@ public class bedsideMonitorMainGUI extends JFrame{
 	    	reset();	    		
 	    }	
 		repaint();	
-	}	
+	}
+	
+	private XYDataset createDataSet(){
+		final XYSeries heartRate = new XYSeries("Heart Rate");
+		heartRate.setMaximumItemCount(8);
+		
+		final XYSeries bodytemp = new XYSeries("Body Temparture");
+		bodytemp.setMaximumItemCount(8);
+		
+		final XYSeries resprate = new XYSeries("Respiratory Rate");
+		resprate.setMaximumItemCount(8);
+		
+		final XYSeries bloodpressure = new XYSeries("Blood Pressure");
+		bloodpressure.setMaximumItemCount(8);
+		
+		final XYSeries weight = new XYSeries("Weight");
+		weight.setMaximumItemCount(8);
+		
+        
+        dataset.addSeries(heartRate);
+        dataset.addSeries(bodytemp);
+        dataset.addSeries(resprate);
+        dataset.addSeries(bloodpressure);
+        dataset.addSeries(weight);
+                
+        return dataset;
+	}
+	
+	private JFreeChart createChart(XYDataset dataset) {
+		 final JFreeChart chart = ChartFactory.createXYLineChart(
+				 	"",
+		            "Second",                 // x axis label
+		            "Numeric Value",          // y axis label
+		            dataset,                  // data
+		            PlotOrientation.VERTICAL,
+		            true,            
+		            true,                    
+		            false                    
+		 );
+		 
+		 chart.setBackgroundPaint(Color.white);
+		 final XYPlot plot = chart.getXYPlot();
+	     plot.setBackgroundPaint(Color.lightGray);
+	    
+	     plot.setDomainGridlinePaint(Color.white);
+	     plot.setRangeGridlinePaint(Color.white);
+	        
+	     final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+	     plot.setRenderer(renderer);
+
+	     // change the auto tick unit selection to integer units only...
+	     final NumberAxis domain = (NumberAxis) plot.getDomainAxis();
+	     domain.setRange(-8, 0);
+	     domain.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+	                
+	     return chart;
+		 
+	}
 }
