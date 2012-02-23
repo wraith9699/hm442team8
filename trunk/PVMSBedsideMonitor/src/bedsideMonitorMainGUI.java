@@ -344,7 +344,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 					temp[0]=(double) x.getCurrentValue();
 				}
 			}
-			heartRate.clear();
+		//	heartRate.clear();
 			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
 				heartRate.add((-1*(counter%8)), temp[y]);
