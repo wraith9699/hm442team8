@@ -317,20 +317,20 @@ public class bedsideMonitorMainGUI extends JFrame{
 	public void updateDisplay(){
 		
 		Patient p = bedside.getPatient();
-		ArrayList<Integer> value = new ArrayList<Integer>();
+		ArrayList<Double> value = new ArrayList<Double>();
 		
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
 
 		for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
-			value.add( (Integer)heartRate.getY(pos-1));			
+			value.add( (Double)heartRate.getY(pos-1));			
 		}
 		if( heartRate.getItemCount() > 0 ){
 			int count = heartRate.getItemCount();
 			int sCount = 0;
 			heartRate.clear();
-			for( Integer e : value){
+			for( Double e : value){
 				if( count > 0){
 					heartRate.add((count-1), value.get(sCount));
 					sCount++;
