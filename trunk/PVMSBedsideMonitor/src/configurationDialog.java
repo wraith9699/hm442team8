@@ -293,12 +293,17 @@ public class configurationDialog extends JDialog {
             // blink the label background on and off
         	Vital x = (Vital) (p.getVitals().get("Blood Pressure"));
     		textField.setText( "" + x.getCurrentValue() );
+    		
     		x = (Vital) (p.getVitals().get("Body Temperature"));
     		textField_1.setText( "" + x.getCurrentValue());
+    		
     		x = (Vital) (p.getVitals().get("Heart Rate"));
     		textField_2.setText( "" + x.getCurrentValue());
-    		textField_3.setBounds(315, 257, 119, 61);
+    		
+    		
     		x = (Vital) (p.getVitals().get("Respiratory Rate"));
+    		textField_3.setText( "" + x.getCurrentValue());
+    		
     		x = (Vital) (p.getVitals().get("Weight"));
     		textField_4.setText( "" + x.getCurrentValue());
         }
