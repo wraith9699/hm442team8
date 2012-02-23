@@ -331,8 +331,10 @@ public class bedsideMonitorMainGUI extends JFrame{
 		//ArrayList<Double> value = new ArrayList<Double>();
 		Double temp [] = new Double[8];
 		
-		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
-		textField_1.setText("" + x.getCurrentValue());
+		Vital x = (Vital) (p.getVitals().get("Heart Rate"));
+		if( sensors[0]){
+			textField_1.setText("" + x.getCurrentValue());
+		}
 		//heartRate.add( (-1*(count%8)), x.getCurrentValue());
 		
 		if( heartRate.getItemCount() == 8 ){
@@ -362,7 +364,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 		}
 		
 		x = (Vital) (p.getVitals().get("Body Temperature"));
-		textField_2.setText("" + x.getCurrentValue() );
+		if( sensors[1]){
+			textField_2.setText("" + x.getCurrentValue() );
+		}
 		if( bodytemp.getItemCount() == 8 ){
 			for( int size = 0; size < bodytemp.getItemCount(); size++ ){
 				temp[size] = (Double) bodytemp.getY(size);
@@ -390,7 +394,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 		}
 		
 		x = (Vital) (p.getVitals().get("Respiratory Rate"));
-		textField_3.setText("" + x.getCurrentValue());
+		if( sensors[2]){
+			textField_3.setText("" + x.getCurrentValue());
+		}
 		if( resprate.getItemCount() == 8 ){
 			for( int size = 0; size < resprate.getItemCount(); size++ ){
 				temp[size] = (Double) resprate.getY(size);
@@ -419,7 +425,10 @@ public class bedsideMonitorMainGUI extends JFrame{
 
 		
 		x = (Vital) (p.getVitals().get("Blood Pressure"));
+		if( sensors[3])
+		{
 		textField_4.setText("" + x.getCurrentValue());
+		}
 		
 		if( bloodpressure.getItemCount() == 8 ){
 			for( int size = 0; size < bloodpressure.getItemCount(); size++ ){
@@ -449,8 +458,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 		
 		
 		x = (Vital) (p.getVitals().get("Weight"));
+		if( sensors[4]){
 		textField_5.setText("" + x.getCurrentValue());
-		
+		}
 		if( weight.getItemCount() == 8 ){
 			for( int size = 0; size < weight.getItemCount(); size++ ){
 				temp[size] = (Double) weight.getY(size);
