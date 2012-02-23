@@ -38,7 +38,14 @@ public class bedsideMonitorMainGUI extends JFrame{
 	protected Patient p = null;
 	public HashMap <String, Integer> ranges;
 	public BedsideSystemImpl bedside;
-	final XYSeriesCollection dataset = new XYSeriesCollection();
+	XYSeriesCollection dataset = new XYSeriesCollection();
+	
+	XYSeries heartRate = new XYSeries("Heart Rate");
+	XYSeries bodytemp = new XYSeries("Body Temparture");
+	XYSeries resprate = new XYSeries("Respiratory Rate");
+	XYSeries bloodpressure = new XYSeries("Blood Pressure");
+	XYSeries weight = new XYSeries("Weight");
+
 	
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
@@ -310,23 +317,25 @@ public class bedsideMonitorMainGUI extends JFrame{
 	public void updateDisplay(){
 		//System.out.println("Got here");
 		Patient p = bedside.getPatient();
-		XYSeries line = new XYSeries("Hold");
+		//XYSeries line = new XYSeries("Hold");
 		ArrayList<Integer> value = new ArrayList<Integer>();
-		ArrayList<XYSeries> temp = new ArrayList<XYSeries>();
-		temp = (ArrayList<XYSeries>) dataset.getSeries();
+		//ArrayList<XYSeries> temp = new ArrayList<XYSeries>();
+		//temp = (ArrayList<XYSeries>) dataset.getSeries();
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
-		for( int pos = temp.get(0).getItemCount(); pos > 0; pos-- ){
-			value.add( (Integer)temp.get(0).getY(pos-1));			
+		
+		
+		for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
+			value.add( (Integer)heartRate.getY(pos-1));			
 		}
-		if( temp.get(0).getItemCount() > 0 ){
-			int count = temp.get(0).getItemCount();
+		if( heartRate.getItemCount() > 0 ){
+			int count = heartRate.getItemCount();
 			int sCount = 0;
-			temp.get(0).clear();
+			heartRate.clear();
 			for( Integer e : value){
 				if( count > 0){
-					temp.get(0).add((count-1), value.get(sCount));
+					heartRate.add((count-1), value.get(sCount));
 					sCount++;
 					count--;
 				}
@@ -366,29 +375,16 @@ public class bedsideMonitorMainGUI extends JFrame{
 	}
 	
 	private XYDataset createDataSet(){
-		final XYSeries heartRate = new XYSeries("Heart Rate");
-		heartRate.setMaximumItemCount(8);
 		
-		final XYSeries bodytemp = new XYSeries("Body Temparture");
-		bodytemp.setMaximumItemCount(8);
-		
-		final XYSeries resprate = new XYSeries("Respiratory Rate");
-		resprate.setMaximumItemCount(8);
-		
-		final XYSeries bloodpressure = new XYSeries("Blood Pressure");
-		bloodpressure.setMaximumItemCount(8);
-		
-		final XYSeries weight = new XYSeries("Weight");
-		weight.setMaximumItemCount(8);
 		
         
-        dataset.addSeries(heartRate);
-      //  dataset.addSeries(bodytemp);
-      //  dataset.addSeries(resprate);
-      //  dataset.addSeries(bloodpressure);
-      //  dataset.addSeries(weight);
+       dataset.addSeries(heartRate);
+       dataset.addSeries(bodytemp);
+       dataset.addSeries(resprate);
+       dataset.addSeries(bloodpressure);
+       dataset.addSeries(weight);
                 
-        return dataset;
+       return dataset;
 	}
 	
 	private JFreeChart createChart(XYDataset dataset) {
