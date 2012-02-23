@@ -324,7 +324,11 @@ public class bedsideMonitorMainGUI extends JFrame{
 		textField_1.setText("" + x.getCurrentValue());
 
 		for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
+			System.out.println( "Position is " + pos + " size is " + heartRate.getItemCount());
 			value.add( (Double)heartRate.getY(pos-1));			
+		}
+		for( Double d : value ){
+			System.out.println( "Value of " + d.toString());
 		}
 		if( heartRate.getItemCount() > 0 ){
 			int count = heartRate.getItemCount();
@@ -332,7 +336,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 			heartRate.clear();
 			for( Double e : value){
 				if( count > 0){
+					System.out.println( "Adding " + value.get(sCount) + " to position " + (count-1));
 					heartRate.add((count-1), value.get(sCount));
+					
 					sCount++;
 					count--;
 				}
