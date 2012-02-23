@@ -284,6 +284,7 @@ public class configurationDialog extends JDialog {
 		btnCalibrate.setActionCommand("OK");
 		btnCalibrate.setBounds(156, 413, 130, 61);
 		getContentPane().add(btnCalibrate);
+		dataUpdate.start();
 	}
 	
 	class Update implements ActionListener{
