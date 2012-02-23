@@ -311,11 +311,24 @@ public class bedsideMonitorMainGUI extends JFrame{
 		//System.out.println("Got here");
 		Patient p = bedside.getPatient();
 		XYSeries line = new XYSeries("Hold");
+		ArrayList<Integer> temp = new ArrayList<Integer>();
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
 		line = dataset.getSeries(0);
-		line.add((double)-2, (double)x.getCurrentValue() );
+		if( line.getItemCount() == 0 ){
+			line.add(0, x.getCurrentValue());
+		}
+		line.remove(0);
+		for( int pos = line.getItemCount(); pos > 0; pos-- ){
+			temp.add( (Integer)line.getY(pos));			
+		}
+		dataset.removeSeries(0);
+		for( Integer e : temp){
+			dataset.addSeries(line);
+		}
+		
+		/*line.add((double)-2, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Body Temperature"));
 		textField_2.setText("" + x.getCurrentValue() );
 		line = dataset.getSeries(1);
@@ -331,7 +344,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 		x = (Vital) (p.getVitals().get("Weight"));
 		textField_5.setText("" + x.getCurrentValue());
 		line = dataset.getSeries(4);
-		line.add((double)-6, (double)x.getCurrentValue() );
+		line.add((double)-6, (double)x.getCurrentValue() );*/
 		
 		//turn on alarm blinker
 		if( bedside.getCurrentStatus().equals("ALARMED")){
@@ -364,10 +377,10 @@ public class bedsideMonitorMainGUI extends JFrame{
 		
         
         dataset.addSeries(heartRate);
-        dataset.addSeries(bodytemp);
-        dataset.addSeries(resprate);
-        dataset.addSeries(bloodpressure);
-        dataset.addSeries(weight);
+      //  dataset.addSeries(bodytemp);
+      //  dataset.addSeries(resprate);
+      //  dataset.addSeries(bloodpressure);
+      //  dataset.addSeries(weight);
                 
         return dataset;
 	}
