@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -69,7 +70,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public bedsideMonitorMainGUI( BedsideSystemImpl bedside ){
+	public bedsideMonitorMainGUI( final BedsideSystemImpl bedside ){
 		this.bedside = bedside;
 		Font f = new Font("Dialog", Font.PLAIN, 18);
 		this.p = bedside.getPatient();
@@ -135,6 +136,12 @@ public class bedsideMonitorMainGUI extends JFrame{
 		btnCallButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {; 
 				callTimer.start();
+				try {
+					bedside.callNurse();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		btnCallButton.setBounds(10, 40, 174, 94);
@@ -366,9 +373,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 				}
 			}
 			bodytemp.clear();
-			int counter =0; 
+			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
-				bodytemp.add((-1*(count%8)), temp[y]);
+				bodytemp.add((-1*(counter%8)), temp[y]);
 				counter++;
 			}
 			
