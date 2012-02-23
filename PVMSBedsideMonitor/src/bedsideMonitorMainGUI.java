@@ -315,17 +315,14 @@ public class bedsideMonitorMainGUI extends JFrame{
     }
 		
 	public void updateDisplay(){
-		//System.out.println("Got here");
+		
 		Patient p = bedside.getPatient();
-		//XYSeries line = new XYSeries("Hold");
 		ArrayList<Integer> value = new ArrayList<Integer>();
-		//ArrayList<XYSeries> temp = new ArrayList<XYSeries>();
-		//temp = (ArrayList<XYSeries>) dataset.getSeries();
+		
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
-		
-		
+
 		for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
 			value.add( (Integer)heartRate.getY(pos-1));			
 		}
@@ -340,6 +337,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 					count--;
 				}
 			}
+		}
+		else{
+			heartRate.add((double)0, x.getCurrentValue());
 		}
 		
 		
