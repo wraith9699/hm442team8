@@ -315,15 +315,23 @@ public class bedsideMonitorMainGUI extends JFrame{
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
 		line = dataset.getSeries(0);
-		line.add((double)-3, (double)x.getCurrentValue() );
+		line.add((double)-2, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Body Temperature"));
 		textField_2.setText("" + x.getCurrentValue() );
+		line = dataset.getSeries(1);
+		line.add((double)-3, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Respiratory Rate"));
 		textField_3.setText("" + x.getCurrentValue());
+		line = dataset.getSeries(2);
+		line.add((double)-4, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Blood Pressure"));
 		textField_4.setText("" + x.getCurrentValue());
+		line = dataset.getSeries(3);
+		line.add((double)-5, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Weight"));
 		textField_5.setText("" + x.getCurrentValue());
+		line = dataset.getSeries(4);
+		line.add((double)-6, (double)x.getCurrentValue() );
 		
 		//turn on alarm blinker
 		if( bedside.getCurrentStatus().equals("ALARMED")){
