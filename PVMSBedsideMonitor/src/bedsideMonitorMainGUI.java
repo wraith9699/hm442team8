@@ -344,7 +344,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 					temp[0]=(double) x.getCurrentValue();
 				}
 			}
-		//	heartRate.clear();
+			heartRate.clear();
 			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
 				heartRate.add((-1*(counter%8)), temp[y]);
@@ -372,7 +372,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 					temp[0]=(double) x.getCurrentValue();
 				}
 			}
-			//bodytemp.clear();
+			bodytemp.clear();
 			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
 				bodytemp.add((-1*(counter%8)), temp[y]);
@@ -400,7 +400,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 					temp[0]=(double) x.getCurrentValue();
 				}
 			}
-			//resprate.clear();
+			resprate.clear();
 			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
 				resprate.add((-1*(counter%8)), temp[y]);
@@ -430,7 +430,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 					temp[0]=(double) x.getCurrentValue();
 				}
 			}
-			//bloodpressure.clear();
+			bloodpressure.clear();
 			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
 				bloodpressure.add((-1*(counter%8)), temp[y]);
@@ -460,7 +460,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 					temp[0]=(double) x.getCurrentValue();
 				}
 			}
-			//weight.clear();
+			weight.clear();
 			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
 				weight.add((-1*(counter%8)), temp[y]);
