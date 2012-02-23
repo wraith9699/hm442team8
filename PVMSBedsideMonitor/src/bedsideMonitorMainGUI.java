@@ -311,22 +311,28 @@ public class bedsideMonitorMainGUI extends JFrame{
 		//System.out.println("Got here");
 		Patient p = bedside.getPatient();
 		XYSeries line = new XYSeries("Hold");
-		ArrayList<Integer> temp = new ArrayList<Integer>();
+		ArrayList<Integer> value = new ArrayList<Integer>();
+		ArrayList<XYSeries> temp = new ArrayList<XYSeries>();
+		temp = (ArrayList<XYSeries>) dataset.getSeries();
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
-		line = dataset.getSeries(0);
-		if( line.getItemCount() == 0 ){
-			line.add(0, x.getCurrentValue());
+		for( int pos = temp.get(0).getItemCount(); pos > 0; pos-- ){
+			value.add( (Integer)temp.get(0).getY(pos-1));			
 		}
-		line.remove(0);
-		for( int pos = line.getItemCount(); pos > 0; pos-- ){
-			temp.add( (Integer)line.getY(pos));			
+		if( temp.get(0).getItemCount() > 0 ){
+			int count = temp.get(0).getItemCount();
+			int sCount = 0;
+			temp.get(0).clear();
+			for( Integer e : value){
+				if( count > 0){
+					temp.get(0).add((count-1), value.get(sCount));
+					sCount++;
+					count--;
+				}
+			}
 		}
-		dataset.removeSeries(0);
-		for( Integer e : temp){
-			dataset.addSeries(line);
-		}
+		
 		
 		/*line.add((double)-2, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Body Temperature"));
