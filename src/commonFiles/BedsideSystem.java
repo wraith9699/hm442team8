@@ -11,5 +11,6 @@ public interface BedsideSystem extends Remote {
 	public void dischargePatient() throws RemoteException;
 	public void resetAlarm() throws RemoteException;
 	public String getBedNumber() throws RemoteException;
+	public String getCurrentStatus() throws RemoteException;
 	
 }
