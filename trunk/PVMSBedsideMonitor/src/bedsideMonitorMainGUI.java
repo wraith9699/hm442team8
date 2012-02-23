@@ -226,7 +226,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	}
 	public void reset(){
 		alarmTimer.stop();
-		callTimer.stop();
+		//callTimer.stop();
 		frame.getContentPane().setBackground(null);
 	}
 	public void setSensors( Boolean[] sensors ){
@@ -338,89 +338,145 @@ public class bedsideMonitorMainGUI extends JFrame{
 				}
 			}
 			heartRate.clear();
+			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
-				heartRate.add((-1*(count%8)), temp[y]);
-				count++;
+				heartRate.add((-1*(counter%8)), temp[y]);
+				counter++;
 			}
 			
 		}
 		else{
 			heartRate.add((-1*(count%8)), x.getCurrentValue());
-			count++;
 		}
 		
-		/*if( heartRate.getItemCount() > 0 ){
-			int numPoints = heartRate.getItemCount();
-			System.err.println( numPoints );
-			for( int size = 0; size < heartRate.getItemCount(); size++ ){
-					value.add( (Double) heartRate.getY(size));	
-					System.err.println( "Value of " + heartRate.getY(size));
-			}
-			heartRate.clear();
-				if( numPoints != 8 ){
-				for( int num = 0; num < numPoints; num++ ){
-					System.err.println( "Adding " + value.get(num) + " to " + num );
-					heartRate.add((double) num, value.get(num));				
-				
-				}
-				heartRate.add((double)numPoints+1, x.getCurrentValue());
-			}
-			else{
-				System.err.println( "reset");
-			}
-		}
-		
-		value.clear();
-		/*for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
-			System.err.println( "Position is " + pos + " size is " + heartRate.getItemCount());
-					
-		}
-		
-		if( heartRate.getItemCount() > 0 ){
-			int count = heartRate.getItemCount();
-			int sCount = 0;
-			heartRate.clear();
-			for( Double e : value){
-				if( count >= 0){
-					System.err.println( "Adding " + value.get(sCount) + " to position " + (count));
-					heartRate.add((count-1), value.get(sCount));
-					
-					sCount++;
-					count--;
-				}
-			}
-		}
-		else{
-			heartRate.add((double)0, x.getCurrentValue());
-		}
-		value.clear();
-		
-		
-		/*line.add((double)-2, (double)x.getCurrentValue() );
 		x = (Vital) (p.getVitals().get("Body Temperature"));
 		textField_2.setText("" + x.getCurrentValue() );
-		line = dataset.getSeries(1);
-		line.add((double)-3, (double)x.getCurrentValue() );
+		if( bodytemp.getItemCount() == 8 ){
+			for( int size = 0; size < bodytemp.getItemCount(); size++ ){
+				temp[size] = (Double) bodytemp.getY(size);
+				System.err.println( temp[size].toString());
+			}
+			
+			for( int pos = 8; pos > 0; pos-- ){
+				if( pos != 1 ){
+				temp[pos-1] = temp[pos-2];
+				}
+				else{
+					temp[0]=(double) x.getCurrentValue();
+				}
+			}
+			bodytemp.clear();
+			int counter =0; 
+			for( int y = 0; y < temp.length; y++ ){
+				bodytemp.add((-1*(count%8)), temp[y]);
+				counter++;
+			}
+			
+		}
+		else{
+			bodytemp.add((-1*(count%8)), x.getCurrentValue());
+		}
+		
 		x = (Vital) (p.getVitals().get("Respiratory Rate"));
 		textField_3.setText("" + x.getCurrentValue());
-		line = dataset.getSeries(2);
-		line.add((double)-4, (double)x.getCurrentValue() );
+		if( resprate.getItemCount() == 8 ){
+			for( int size = 0; size < resprate.getItemCount(); size++ ){
+				temp[size] = (Double) resprate.getY(size);
+				System.err.println( temp[size].toString());
+			}
+			
+			for( int pos = 8; pos > 0; pos-- ){
+				if( pos != 1 ){
+				temp[pos-1] = temp[pos-2];
+				}
+				else{
+					temp[0]=(double) x.getCurrentValue();
+				}
+			}
+			resprate.clear();
+			int counter = 0;
+			for( int y = 0; y < temp.length; y++ ){
+				resprate.add((-1*(count%8)), temp[y]);
+				counter++;
+			}
+			
+		}
+		else{
+			resprate.add((-1*(count%8)), x.getCurrentValue());
+		}
+
+		
 		x = (Vital) (p.getVitals().get("Blood Pressure"));
 		textField_4.setText("" + x.getCurrentValue());
-		line = dataset.getSeries(3);
-		line.add((double)-5, (double)x.getCurrentValue() );
+		
+		if( bloodpressure.getItemCount() == 8 ){
+			for( int size = 0; size < bloodpressure.getItemCount(); size++ ){
+				temp[size] = (Double) bloodpressure.getY(size);
+				System.err.println( temp[size].toString());
+			}
+			
+			for( int pos = 8; pos > 0; pos-- ){
+				if( pos != 1 ){
+				temp[pos-1] = temp[pos-2];
+				}
+				else{
+					temp[0]=(double) x.getCurrentValue();
+				}
+			}
+			bloodpressure.clear();
+			int counter =0; 
+			for( int y = 0; y < temp.length; y++ ){
+				bloodpressure.add((-1*(count%8)), temp[y]);
+				counter++;
+			}
+			
+		}
+		else{
+			bloodpressure.add((-1*(count%8)), x.getCurrentValue());
+		}
+		
+		
 		x = (Vital) (p.getVitals().get("Weight"));
 		textField_5.setText("" + x.getCurrentValue());
-		line = dataset.getSeries(4);
-		line.add((double)-6, (double)x.getCurrentValue() );*/
 		
+		if( weight.getItemCount() == 8 ){
+			for( int size = 0; size < weight.getItemCount(); size++ ){
+				temp[size] = (Double) weight.getY(size);
+				System.err.println( temp[size].toString());
+			}
+			
+			for( int pos = 8; pos > 0; pos-- ){
+				if( pos != 1 ){
+				temp[pos-1] = temp[pos-2];
+				}
+				else{
+					temp[0]=(double) x.getCurrentValue();
+				}
+			}
+			weight.clear();
+			int counter =0; 
+			for( int y = 0; y < temp.length; y++ ){
+				weight.add((-1*(count%8)), temp[y]);
+				counter++;
+			}
+			
+		}
+		else{
+			weight.add((-1*(count%8)), x.getCurrentValue());
+		}
+		
+		
+		x = (Vital) (p.getVitals().get("Weight"));
+		textField_5.setText("" + x.getCurrentValue());
+		
+		count++;
 		//turn on alarm blinker
 		if( bedside.getCurrentStatus().equals("ALARMED")){
 	    	alarm();
 	    }
-	    else if( bedside.getCurrentStatus().equals("CALLING")){
+	    /*else if( bedside.getCurrentStatus().equals("CALLING")){
 	    	calling();	    		
-	    }
+	    }*/
 	    else if(  bedside.getCurrentStatus().equals("IDLE")){
 	    	reset();	    		
 	    }	
