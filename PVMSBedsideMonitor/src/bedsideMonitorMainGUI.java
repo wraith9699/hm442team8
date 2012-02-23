@@ -45,7 +45,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	XYSeries resprate = new XYSeries("Respiratory Rate");
 	XYSeries bloodpressure = new XYSeries("Blood Pressure");
 	XYSeries weight = new XYSeries("Weight");
-
+	int count = 0;
 	
 	//Timer refresher = new Timer(500, new guiUpdater());
 //	private BedsideSystemImpl bedside;
@@ -315,28 +315,74 @@ public class bedsideMonitorMainGUI extends JFrame{
     }
 		
 	public void updateDisplay(){
-		
-		Patient p = bedside.getPatient();
-		ArrayList<Double> value = new ArrayList<Double>();
-		
+		p = bedside.getPatient();
+		//ArrayList<Double> value = new ArrayList<Double>();
+		Double temp [] = new Double[8];
 		
 		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
 		textField_1.setText("" + x.getCurrentValue());
-
-		for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
-			System.out.println( "Position is " + pos + " size is " + heartRate.getItemCount());
-			value.add( (Double)heartRate.getY(pos-1));			
+		//heartRate.add( (-1*(count%8)), x.getCurrentValue());
+		
+		if( heartRate.getItemCount() == 8 ){
+			for( int size = 0; size < heartRate.getItemCount(); size++ ){
+				temp[size] = (Double) heartRate.getY(size);
+				System.err.println( temp[size].toString());
+			}
+			
+			for( int pos = 8; pos > 0; pos-- ){
+				if( pos != 1 ){
+				temp[pos-1] = temp[pos-2];
+				}
+				else{
+					temp[0]=(double) x.getCurrentValue();
+				}
+			}
+			heartRate.clear();
+			for( int y = 0; y < temp.length; y++ ){
+				heartRate.add((-1*(count%8)), temp[y]);
+				count++;
+			}
+			
 		}
-		for( Double d : value ){
-			System.out.println( "Value of " + d.toString());
+		else{
+			heartRate.add((-1*(count%8)), x.getCurrentValue());
+			count++;
 		}
+		
+		/*if( heartRate.getItemCount() > 0 ){
+			int numPoints = heartRate.getItemCount();
+			System.err.println( numPoints );
+			for( int size = 0; size < heartRate.getItemCount(); size++ ){
+					value.add( (Double) heartRate.getY(size));	
+					System.err.println( "Value of " + heartRate.getY(size));
+			}
+			heartRate.clear();
+				if( numPoints != 8 ){
+				for( int num = 0; num < numPoints; num++ ){
+					System.err.println( "Adding " + value.get(num) + " to " + num );
+					heartRate.add((double) num, value.get(num));				
+				
+				}
+				heartRate.add((double)numPoints+1, x.getCurrentValue());
+			}
+			else{
+				System.err.println( "reset");
+			}
+		}
+		
+		value.clear();
+		/*for( int pos = heartRate.getItemCount(); pos > 0; pos-- ){
+			System.err.println( "Position is " + pos + " size is " + heartRate.getItemCount());
+					
+		}
+		
 		if( heartRate.getItemCount() > 0 ){
 			int count = heartRate.getItemCount();
 			int sCount = 0;
 			heartRate.clear();
 			for( Double e : value){
-				if( count > 0){
-					System.out.println( "Adding " + value.get(sCount) + " to position " + (count-1));
+				if( count >= 0){
+					System.err.println( "Adding " + value.get(sCount) + " to position " + (count));
 					heartRate.add((count-1), value.get(sCount));
 					
 					sCount++;
@@ -347,6 +393,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 		else{
 			heartRate.add((double)0, x.getCurrentValue());
 		}
+		value.clear();
 		
 		
 		/*line.add((double)-2, (double)x.getCurrentValue() );
@@ -382,8 +429,12 @@ public class bedsideMonitorMainGUI extends JFrame{
 	
 	private XYDataset createDataSet(){
 		
+		heartRate.setMaximumItemCount(9);
+		bodytemp.setMaximumItemCount(8);
+		resprate.setMaximumItemCount(8);
+		bloodpressure.setMaximumItemCount(8);
+		weight.setMaximumItemCount(8);
 		
-        
        dataset.addSeries(heartRate);
        dataset.addSeries(bodytemp);
        dataset.addSeries(resprate);
