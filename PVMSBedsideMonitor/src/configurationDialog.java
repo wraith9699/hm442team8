@@ -17,6 +17,8 @@ public class configurationDialog extends JDialog {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private Boolean sensor[] = { true, true, true, true, true } ;
+	private Timer dataUpdate = new Timer(1000, new Update());
+	private Patient p = null;
 
 	/**
 	 * Launch the application.
@@ -35,6 +37,7 @@ public class configurationDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public configurationDialog( final Patient p, final bedsideMonitorMainGUI monitor ) {
+		this.p = p;
 		sensor = monitor.sensors;
 		System.out.println(p.getName());
 		setBounds(100, 100, 449, 509);
@@ -234,6 +237,8 @@ public class configurationDialog extends JDialog {
 		textField_3.setHorizontalAlignment(JTextField.CENTER);
 		getContentPane().add(textField_3);
 		
+		
+		
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
@@ -280,4 +285,21 @@ public class configurationDialog extends JDialog {
 		btnCalibrate.setBounds(156, 413, 130, 61);
 		getContentPane().add(btnCalibrate);
 	}
+	
+	class Update implements ActionListener{
+  
+        public void actionPerformed(ActionEvent e) {
+            // blink the label background on and off
+        	Vital x = (Vital) (p.getVitals().get("Blood Pressure"));
+    		textField.setText( "" + x.getCurrentValue() );
+    		x = (Vital) (p.getVitals().get("Body Temperature"));
+    		textField_1.setText( "" + x.getCurrentValue());
+    		x = (Vital) (p.getVitals().get("Heart Rate"));
+    		textField_2.setText( "" + x.getCurrentValue());
+    		textField_3.setBounds(315, 257, 119, 61);
+    		x = (Vital) (p.getVitals().get("Respiratory Rate"));
+    		x = (Vital) (p.getVitals().get("Weight"));
+    		textField_4.setText( "" + x.getCurrentValue());
+        }
+    }
 }
