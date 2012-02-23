@@ -401,9 +401,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 				}
 			}
 			resprate.clear();
-			int counter = 0;
+			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
-				resprate.add((-1*(count%8)), temp[y]);
+				resprate.add((-1*(counter%8)), temp[y]);
 				counter++;
 			}
 			
@@ -431,9 +431,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 				}
 			}
 			bloodpressure.clear();
-			int counter =0; 
+			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
-				bloodpressure.add((-1*(count%8)), temp[y]);
+				bloodpressure.add((-1*(counter%8)), temp[y]);
 				counter++;
 			}
 			
@@ -461,9 +461,9 @@ public class bedsideMonitorMainGUI extends JFrame{
 				}
 			}
 			weight.clear();
-			int counter =0; 
+			int counter = 0; 
 			for( int y = 0; y < temp.length; y++ ){
-				weight.add((-1*(count%8)), temp[y]);
+				weight.add((-1*(counter%8)), temp[y]);
 				counter++;
 			}
 			
