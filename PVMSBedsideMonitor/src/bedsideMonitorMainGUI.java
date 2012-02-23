@@ -239,7 +239,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 	public void setSensors( Boolean[] sensors ){
 		this.sensors = sensors;
 		//System.out.println( sensors[0] + " " + sensors[1] + sensors[2] + " " + sensors[3] + " " + sensors[4]);
-		
+		dataset.removeAllSeries();
 		if( !sensors[0] ){
 			textField_1.setText("N/A");
 			textField_1.setHorizontalAlignment(JTextField.CENTER);
@@ -248,6 +248,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 			Vital x = (Vital) (p.getVitals().get("Heart Rate"));
 			textField_1.setText( "" + x.getCurrentValue() );
 			textField_1.setHorizontalAlignment(JTextField.CENTER);
+			dataset.addSeries(heartRate);
 		}
 		if( !sensors[1] ){
 			textField_2.setText("N/A");
@@ -257,6 +258,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 			Vital x = (Vital) (p.getVitals().get("Body Temperature"));
 			textField_2.setText( "" + x.getCurrentValue() );
 			textField_2.setHorizontalAlignment(JTextField.CENTER);
+			dataset.addSeries(bodytemp);
 		}
 		if( !sensors[2] ){
 			textField_3.setText("N/A");
@@ -266,15 +268,17 @@ public class bedsideMonitorMainGUI extends JFrame{
 			Vital x = (Vital) (p.getVitals().get("Respiratory Rate"));
 			textField_3.setText( "" + x.getCurrentValue() );
 			textField_3.setHorizontalAlignment(JTextField.CENTER);
+			dataset.addSeries(resprate);
 		}
 		if( !sensors[3] ){
 			textField_4.setText("N/A");
 			textField_4.setHorizontalAlignment(JTextField.CENTER);
 		}
 		else{
-			Vital x = (Vital) (p.getVitals().get("Heart Rate"));
+			Vital x = (Vital) (p.getVitals().get("Blood Pressure"));
 			textField_4.setText( "" + x.getCurrentValue() );
 			textField_4.setHorizontalAlignment(JTextField.CENTER);
+			dataset.addSeries(bloodpressure);
 		}
 		if( !sensors[4] ){
 			textField_5.setText("N/A");
@@ -284,6 +288,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 			Vital x = (Vital) (p.getVitals().get("Weight"));
 			textField_5.setText( "" + x.getCurrentValue() );
 			textField_5.setHorizontalAlignment(JTextField.CENTER);
+			dataset.addSeries(weight);
 		}
 		repaint();
 	}
