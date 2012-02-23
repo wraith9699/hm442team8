@@ -10,14 +10,7 @@ import java.util.Iterator;
 
 import commonFiles.Patient;
 import commonFiles.Vital;
-import org.jfree.chart.*;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+
 public class bedsideMonitorMainGUI extends JFrame{
 
 	
@@ -71,13 +64,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setResizable(false);
-
-		final XYDataset dataset = createDataSet();
-	    final JFreeChart chart = createChart(dataset);
-	    final ChartPanel chartPanel = new ChartPanel(chart);
-	    //chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-	    
+		setResizable(false);  
 	   
 		JButton btnLog = new JButton("Log");
 		btnLog.addActionListener(new ActionListener() {
@@ -205,10 +192,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 		lblWeight.setFont(f);
 		contentPane.add(lblWeight);
 		
-		chartPanel.setBounds(124, 145, 381, 451);
-		//chartPanel.setPreferredSize( new java.awt.Dimension(510,365));
-		contentPane.add(chartPanel);
-		//vitalPanel.add(chartPanel);
+		
 		dataUpdate.start();
 		
 	}
@@ -284,38 +268,7 @@ public class bedsideMonitorMainGUI extends JFrame{
 			System.out.println(it.next());
 		}*/
 	}
-	private JFreeChart createChart(XYDataset dataset) {
-		 final JFreeChart chart = ChartFactory.createXYLineChart(
-		            "Line Chart Demo 6",      // chart title
-		            "X",                      // x axis label
-		            "Y",                      // y axis label
-		            dataset,                  // data
-		            PlotOrientation.VERTICAL,
-		            true,                     // include legend
-		            true,                     // tooltips
-		            false                     // urls
-		        );
-		 chart.setBackgroundPaint(Color.white);
-		 final XYPlot plot = chart.getXYPlot();
-	        plot.setBackgroundPaint(Color.lightGray);
-	    //    plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
-	        plot.setDomainGridlinePaint(Color.white);
-	        plot.setRangeGridlinePaint(Color.white);
-	        
-	        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-	        renderer.setSeriesLinesVisible(0, false);
-	        renderer.setSeriesShapesVisible(1, false);
-	        plot.setRenderer(renderer);
-
-	        // change the auto tick unit selection to integer units only...
-	        final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-	        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-	        // OPTIONAL CUSTOMISATION COMPLETED.
-	                
-	        return chart;
-		 
-	}
-
+	
 	class Blinker implements ActionListener{
         boolean on=false;
  
@@ -340,83 +293,32 @@ public class bedsideMonitorMainGUI extends JFrame{
              updateDisplay();   	
         }
     }
-	
-	
-	private XYDataset createDataSet(){
-		final XYSeries series1 = new XYSeries("First");
-        series1.add(1.0, 1.0);
-        series1.add(2.0, 4.0);
-        series1.add(3.0, 3.0);
-        series1.add(4.0, 5.0);
-        series1.add(5.0, 5.0);
-        series1.add(6.0, 7.0);
-        series1.add(7.0, 7.0);
-        series1.add(8.0, 8.0);
-
-        final XYSeries series2 = new XYSeries("Second");
-        series2.add(1.0, 5.0);
-        series2.add(2.0, 7.0);
-        series2.add(3.0, 6.0);
-        series2.add(4.0, 8.0);
-        series2.add(5.0, 4.0);
-        series2.add(6.0, 4.0);
-        series2.add(7.0, 2.0);
-        series2.add(8.0, 1.0);
-
-        final XYSeries series3 = new XYSeries("Third");
-        series3.add(3.0, 4.0);
-        series3.add(4.0, 3.0);
-        series3.add(5.0, 2.0);
-        series3.add(6.0, 3.0);
-        series3.add(7.0, 6.0);
-        series3.add(8.0, 3.0);
-        series3.add(9.0, 4.0);
-        series3.add(10.0, 3.0);
-
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series1);
-        dataset.addSeries(series2);
-        dataset.addSeries(series3);
-                
-        return dataset;
 		
-	}
-	
 	public void updateDisplay(){
 		System.out.println("Got here");
 		Patient p = bedside.getPatient();
-		// 0 = blood pressure
-		// 1 = body temp
-		// 2 = heart rate
-		// 3 = respitory rate
-		// 4 = weight
-		/*ArrayList<Vital> vitalList = (ArrayList<Vital>) p.getVitals().values();  ***PROBLEM HERE***
-		//heart rate field
-		textField_1.setText(Integer.toString(vitalList.get(2).getCurrentValue()));
-		//body temp field
-		textField_2.setText(Integer.toString(vitalList.get(1).getCurrentValue()));
-		//respitory rate field
-		textField_3.setText(Integer.toString(vitalList.get(3).getCurrentValue()));
-		//blood pressure field
-		textField_4.setText(Integer.toString(vitalList.get(0).getCurrentValue()));
-		//weight field
-		textField_5.setText(Integer.toString(vitalList.get(4).getCurrentValue()));
-		*/
-			//turn on alarm blinker
-			if( bedside.getCurrentStatus().equals("ALARMED")){
-	    		alarm();
-	    	}
-	    	else if( bedside.getCurrentStatus().equals("CALLING")){
-	    		calling();	    		
-	    	}
-	    	else if(  bedside.getCurrentStatus().equals("IDLE")){
-	    		reset();	    		
-	    	}
-			
-		repaint();
-			
-		}
 		
+		Vital x = (Vital) (p.getVitals().get("Heart Rate"));	
+		textField_1.setText("" + x.getCurrentValue());
+		x = (Vital) (p.getVitals().get("Body Temperature"));
+		textField_2.setText("" + x.getCurrentValue() );
+		x = (Vital) (p.getVitals().get("Respiratory Rate"));
+		textField_3.setText("" + x.getCurrentValue());
+		x = (Vital) (p.getVitals().get("Blood Pressure"));
+		textField_4.setText("" + x.getCurrentValue());
+		x = (Vital) (p.getVitals().get("Weight"));
+		textField_5.setText("" + x.getCurrentValue());
 		
-		
+		//turn on alarm blinker
+		if( bedside.getCurrentStatus().equals("ALARMED")){
+	    	alarm();
+	    }
+	    else if( bedside.getCurrentStatus().equals("CALLING")){
+	    	calling();	    		
+	    }
+	    else if(  bedside.getCurrentStatus().equals("IDLE")){
+	    	reset();	    		
+	    }	
+		repaint();	
+	}	
 }
